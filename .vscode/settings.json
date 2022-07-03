@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "c:\\Users\\91910\\Documents\\c\\mylibc2.0",
+            "binaryPath": "c:\\Users\\91910\\Documents\\c\\mylibc2.0\\main",
+            "binaryArgs": []
+        }
+    ]
+}
