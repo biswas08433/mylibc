@@ -1,11 +1,10 @@
-#include "include/sort_int.h"
+#include "../include/sort_int.h"
 
 // Bubble Sort
 void bub_sort_int(Slice_Int *slice)
 {
     int *arr = slice->arr;
     int length = slice->length;
-    // int i, j;
     bool swapped;
     for (int i = 0; i < length; i += 1)
     {
@@ -53,8 +52,10 @@ void sel_sort_int(Slice_Int *slice)
     }
 }
 
+// NOT IMPLEMENTED
 void merge_sort_int(Slice_Int *slice)
 {
+    // NOT IMPLEMENTED
 }
 
 // this return 2 if the slice is not sorted; else returns the slope.

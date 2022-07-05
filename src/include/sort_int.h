@@ -1,3 +1,5 @@
+#pragma once
+
 #include "helper.h"
 #include "slice_int.h"
 #include "stdbool.h"

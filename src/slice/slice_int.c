@@ -1,4 +1,4 @@
-#include "include/slice_int.h"
+#include "../include/slice_int.h"
 
 // Returns a new slice of int.
 Slice_Int new_slice_int(int capacity)
@@ -58,7 +58,7 @@ Slice_Int new_slice_int_from(Slice_Int *slice, int start, int end)
 // Append an element to the slice. Returns the updated length or -1 if error.
 int append_int(Slice_Int *slice, int data)
 {
-    if (check_capacity_int(slice) == -1)
+    if (inc_cap_int(slice) == -1)
     {
         return -1;
     }
@@ -75,10 +75,10 @@ int append_int(Slice_Int *slice, int data)
     }
 }
 
-// Insert data into given index.Returns the updated length or -1 if error.
+// Insert data into given index. Returns the updated length or -1 if error.
 int insert_int(Slice_Int *slice, int data, int index)
 {
-    if (check_capacity_int(slice) == -1)
+    if (inc_cap_int(slice) == -1)
     {
         return -1;
     }
@@ -118,7 +118,7 @@ int delete_int(Slice_Int *slice, int index)
     }
 }
 
-// Seraches for the data. Returns -1 if not found.
+// Searches for the data. Returns -1 if not found.
 int search_int(Slice_Int *slice, int value)
 {
     for (int i = 0; i < slice->length; i++)
@@ -131,6 +131,14 @@ int search_int(Slice_Int *slice, int value)
     return -1;
 }
 
+// NOT IMPLEMENTED
+int bsearch_int(Slice_Int *slice, int value)
+{
+    // Not IMPLEMENTED
+    return 0;
+}
+
+// Returns the maximum element from the slice.
 int max_slice_int(Slice_Int *slice)
 {
     int t = INT_MIN;
@@ -144,6 +152,7 @@ int max_slice_int(Slice_Int *slice)
     return t;
 }
 
+// Returns the minimum element from the slice.
 int min_slice_int(Slice_Int *slice)
 {
     int t = INT_MAX;
@@ -157,6 +166,7 @@ int min_slice_int(Slice_Int *slice)
     return t;
 }
 
+// Display the slice.
 void display_int(Slice_Int *slice)
 {
     int length = slice->length;
@@ -172,6 +182,7 @@ void display_int(Slice_Int *slice)
     printf("]}");
 }
 
+// Display the slice with debug info.
 void display_debug_int(Slice_Int *slice)
 {
     int length = slice->length;
@@ -186,4 +197,82 @@ void display_debug_int(Slice_Int *slice)
             printf(" ");
     }
     printf("]}\n");
+}
+
+// Gets the element by the given index.
+int get_int(Slice_Int *slice, int index)
+{
+    if (index < slice->length)
+    {
+        return slice->arr[index];
+    }
+    else
+    {
+        printf("Accessing invalid index %d", index);
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Sets the element by the given index.
+int set_int(Slice_Int *slice, int value, int index)
+{
+    if (index < slice->length)
+    {
+        return slice->arr[index];
+    }
+    else
+    {
+        printf("Accessing invalid index %d", index);
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Returns the length of the slice.
+int len_int(Slice_Int *slice)
+{
+    return slice->length;
+}
+
+// Returns the capacity of the slice.
+int cap_int(Slice_Int *slice)
+{
+    return slice->capacity;
+}
+
+// Frees the slice's underlying array.
+// Only delete the original slice i.e. the slice containing the starting pointer.
+void delete_slice_int(Slice_Int *slice)
+{
+    if (slice->w_perm == true)
+    {
+        free(slice->arr);
+        slice->arr = NULL;
+    }
+    else
+    {
+        fprintf(stderr, "Write denied!");
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+
+// Increases the capacity when needed. *It does not decrease the capacity*
+// Returns -1 if there is error in allocation. 0 otherwise.
+int inc_cap_int(Slice_Int *slice)
+{
+    if (slice->length == slice->capacity && slice->w_perm == true)
+    {
+        slice->capacity *= 2;
+        int *new_arr = (int *)malloc(slice->capacity * sizeof(int));
+        if (new_arr == NULL)
+        {
+            return -1;
+        }
+        copy_int(new_arr, slice->arr, slice->length);
+        free(slice->arr);
+        slice->arr = new_arr;
+        return 0;
+    }
+    return 0;
 }
