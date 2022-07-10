@@ -1,33 +1,28 @@
-#include "../include/slice_int.h"
+#include "../include/slice_dbl.h"
 
-// Returns a new slice of int.
-SliceInt new_slice_int(int capacity)
+double epsilon = 0.00000000000001;
+
+SliceDbl new_slice_dbl(int capacity)
 {
-    SliceInt temp_slice;
+    SliceDbl temp_slice;
     temp_slice.length = 0;
     temp_slice.capacity = capacity;
     temp_slice.w_perm = true;
-    temp_slice.arr = (int *)malloc(temp_slice.capacity * sizeof(int));
-    init_int(temp_slice.arr, capacity, 0);
+    temp_slice.arr = (double *)malloc(temp_slice.capacity * sizeof(double));
+    init_dbl(temp_slice.arr, capacity, 0);
 
     return temp_slice;
 }
-
-// Returns a copy slice from another slice.
-SliceInt copy_slice_int(SliceInt from)
+SliceDbl copy_slice_dbl(SliceDbl from)
 {
-    SliceInt temp_slice = new_slice_int(from.capacity);
+    SliceDbl temp_slice = new_slice_dbl(from.capacity);
     temp_slice.length = from.length;
-    copy_int(from.arr, temp_slice.arr, from.length);
+    copy_dbl(from.arr, temp_slice.arr, from.length);
     return temp_slice;
 }
-
-// Creates a new slice from existing slice. The underlying array will be shared.
-// w_perm set the write permission.
-// range -> [start,end)
-SliceInt slice_int_from(SliceInt *slice, int start, int end, bool w_perm)
+SliceDbl slice_dbl_from(SliceDbl *slice, int start, int end, bool w_perm)
 {
-    SliceInt new_slice;
+    SliceDbl new_slice;
     new_slice.length = end - start;
     new_slice.capacity = w_perm ? slice->capacity - start : 0;
     new_slice.w_perm = w_perm;
@@ -35,30 +30,26 @@ SliceInt slice_int_from(SliceInt *slice, int start, int end, bool w_perm)
 
     return new_slice;
 }
-
-// Creates a new slice from existing slice. The underlying array will be newly allocated.
-// range -> [start,end)
-SliceInt new_slice_int_from(SliceInt *slice, int start, int end)
+SliceDbl new_slice_dbl_from(SliceDbl *slice, int start, int end)
 {
-    SliceInt new_slice;
+    SliceDbl new_slice;
     new_slice.length = end - start;
     new_slice.capacity = new_slice.length * 2;
     new_slice.w_perm = true;
-    new_slice.arr = (int *)malloc(new_slice.capacity * sizeof(int));
+    new_slice.arr = (double *)malloc(new_slice.capacity * sizeof(double));
 
     if (new_slice.arr == NULL)
     {
         return new_slice;
         fprintf(stderr, "allocation failed!");
     }
-    copy_int(slice->arr + start, new_slice.arr, new_slice.length);
+    copy_dbl(slice->arr + start, new_slice.arr, new_slice.length);
     return new_slice;
 }
 
-// Append an element to the slice. Returns the updated length or -1 if error.
-int append_int(SliceInt *slice, int data)
+int append_dbl(SliceDbl *slice, double data)
 {
-    if (inc_cap_int(slice) == -1)
+    if (inc_cap_dbl(slice) == -1)
     {
         return -1;
     }
@@ -74,11 +65,9 @@ int append_int(SliceInt *slice, int data)
         exit(EXIT_FAILURE);
     }
 }
-
-// Insert data into given index. Returns the updated length or -1 if error.
-int insert_int(SliceInt *slice, int data, int index)
+int insert_dbl(SliceDbl *slice, double data, int index)
 {
-    if (inc_cap_int(slice) == -1)
+    if (inc_cap_dbl(slice) == -1)
     {
         return -1;
     }
@@ -98,9 +87,7 @@ int insert_int(SliceInt *slice, int data, int index)
         exit(EXIT_FAILURE);
     }
 }
-
-// Deletes the data at given index. Returns the updated length.
-int delete_int(SliceInt *slice, int index)
+int delete_dbl(SliceDbl *slice, int index)
 {
     if (slice->w_perm == true)
     {
@@ -117,90 +104,77 @@ int delete_int(SliceInt *slice, int index)
         exit(EXIT_FAILURE);
     }
 }
-
-// Searches for the data. Returns -1 if not found.
-int search_int(SliceInt *slice, int value)
+int search_dbl(SliceDbl *slice, double value)
 {
     for (int i = 0; i < slice->length; i++)
     {
-        if (slice->arr[i] == value)
+        if (fabs(slice->arr[i] - value) < epsilon)
         {
             return i;
         }
     }
     return -1;
 }
-
-// NOT IMPLEMENTED
-int bsearch_int(SliceInt *slice, int value)
+int bsearch_dbl(SliceDbl *slice, double value)
 {
-    // Not IMPLEMENTED
+    // NOT IMPLEMENTED
     return 0;
 }
-
-// Returns the maximum element from the slice.
-int max_slice_int(SliceInt *slice)
+int max_slice_dbl(SliceDbl *slice)
 {
-    int t = LONG_MIN;
+    double t = DBL_MIN;
     for (int i = 0; i < slice->length; i++)
     {
-        if (slice->arr[i] > t)
+        if (slice->arr[i] - t > epsilon)
         {
             t = slice->arr[i];
         }
     }
     return t;
 }
-
-// Returns the minimum element from the slice.
-int min_slice_int(SliceInt *slice)
+int min_slice_dbl(SliceDbl *slice)
 {
-    int t = LONG_MAX;
+    double t = DBL_MAX;
     for (int i = 0; i < slice->length; i++)
     {
-        if (slice->arr[i] < t)
+        if (slice->arr[i] - t < epsilon)
         {
             t = slice->arr[i];
         }
     }
     return t;
 }
-
-// Display the slice.
-void display_int(SliceInt *slice)
+void display_dbl(SliceDbl *slice)
 {
     int length = slice->length;
-    int *arr = slice->arr;
+    double *arr = slice->arr;
 
     printf("[");
     for (int i = 0; i < length; i++)
     {
-        printf("%d", arr[i]);
+        printf("%.15g", arr[i]);
         if (i != length - 1)
             printf(" ");
     }
     printf("]}");
 }
-
-// Display the slice with debug info.
-void display_debug_int(SliceInt *slice)
+void display_debug_dbl(SliceDbl *slice)
 {
     int length = slice->length;
-    int *arr = slice->arr;
+    double *arr = slice->arr;
 
     printf("{len: %d, ", length);
     printf("cap: %d, [", slice->capacity);
     for (int i = 0; i < length; i++)
     {
-        printf("%d", arr[i]);
+        printf("%.15g", arr[i]);
         if (i != length - 1)
             printf(" ");
     }
     printf("]}\n");
 }
 
-// Gets the element by the given index.
-int get_int(SliceInt *slice, int index)
+double get_dbl(SliceDbl *slice, int index)
 {
     if (index < slice->length)
     {
@@ -212,9 +186,7 @@ int get_int(SliceInt *slice, int index)
         exit(EXIT_FAILURE);
     }
 }
-
-// Sets the element by the given index.
-void set_int(SliceInt *slice, int value, int index)
+void set_dbl(SliceDbl *slice, double value, int index)
 {
     if (index < slice->length)
     {
@@ -226,22 +198,16 @@ void set_int(SliceInt *slice, int value, int index)
         exit(EXIT_FAILURE);
     }
 }
-
-// Returns the length of the slice.
-int len_int(SliceInt *slice)
+int len_dbl(SliceDbl *slice)
 {
     return slice->length;
 }
-
-// Returns the capacity of the slice.
-int cap_int(SliceInt *slice)
+int cap_dbl(SliceDbl *slice)
 {
     return slice->capacity;
 }
 
-// Frees the slice's underlying array.
-// Only delete the original slice i.e. the slice containing the starting pointer.
-void delete_slice_int(SliceInt *slice)
+void delete_slice_dbl(SliceDbl *slice)
 {
     if (slice->w_perm == true)
     {
@@ -255,21 +221,18 @@ void delete_slice_int(SliceInt *slice)
     }
 }
 
-// Increases the capacity when needed. *It does not decrease the capacity*
-// Returns -1 if there is error in allocation. 0 otherwise.
-int inc_cap_int(SliceInt *slice)
+/// Increases the capacity when needed. *It does not decrease the capacity*
+// Exits with error code EXIT_FAILURE if failed to allocate. 0 otherwise.
+int inc_cap_dbl(SliceDbl *slice)
 {
     if (slice->length == slice->capacity && slice->w_perm == true)
     {
         slice->capacity *= 2;
-        int *new_arr = (int *)malloc(slice->capacity * sizeof(int));
-        if (new_arr == NULL)
+        slice->arr = realloc(slice->arr, slice->capacity * sizeof(int));
+        if (slice->arr == NULL)
         {
-            return -1;
+            exit(EXIT_FAILURE);
         }
-        copy_int(new_arr, slice->arr, slice->length);
-        free(slice->arr);
-        slice->arr = new_arr;
         return 0;
     }
     return 0;

@@ -5,7 +5,7 @@
 # Compiler settings - Can be customized.
 CC = gcc
 CXXFLAGS = -std=c11 -Wall -g
-LDFLAGS = 
+LDFLAGS = -lm
 
 # Makefile settings - Can be customized.
 APPNAME = main
@@ -31,9 +31,14 @@ WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 ####################### Targets beginning here #########################
 ########################################################################
 
-.PHONY:all clean cleandep cleanw cleandepw
+.PHONY:all run clean fullclean cleandep cleanw cleandepw
+
 
 all: $(APPNAME)
+
+run: all
+	./$(APPNAME).exe
+
 
 # Builds the app
 $(APPNAME): $(OBJ)
@@ -56,6 +61,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
 # Cleans complete project
 clean:
 	@$(RM) -f $(DELOBJ) $(DEP) $(APPNAME)
+
+fullclean:
+	@$(RM) -f $(DELOBJ) $(DEP) $(APPNAME)
+	@$(RM) -r ./dep ./obj
 
 # Cleans only all files with the extension .d
 cleandep:

@@ -1,7 +1,7 @@
 #include "../include/sort_int.h"
 
 // Bubble Sort
-void bub_sort_int(Slice_Int *slice)
+void bub_sort_int(SliceInt *slice)
 {
     int *arr = slice->arr;
     int length = slice->length;
@@ -25,7 +25,7 @@ void bub_sort_int(Slice_Int *slice)
 }
 
 // Selection Sort
-void sel_sort_int(Slice_Int *slice)
+void sel_sort_int(SliceInt *slice)
 {
     if (is_sorted_int(slice) == true)
     {
@@ -53,7 +53,7 @@ void sel_sort_int(Slice_Int *slice)
 }
 
 // NOT IMPLEMENTED
-void merge_sort_int(Slice_Int *slice)
+void merge_sort_int(SliceInt *slice)
 {
     // NOT IMPLEMENTED
 }
@@ -62,7 +62,7 @@ void merge_sort_int(Slice_Int *slice)
 // -1 -> not descending order
 // 0 -> same
 // 1-> not ascending order
-int order_int(Slice_Int *slice)
+int order_int(SliceInt *slice)
 {
     int *arr = slice->arr;
     int length = slice->length;
@@ -89,7 +89,7 @@ int order_int(Slice_Int *slice)
 }
 
 // Returns true if sorted; false otherwise.
-bool is_sorted_int(Slice_Int *slice)
+bool is_sorted_int(SliceInt *slice)
 {
     if (order_int(slice) == 2)
     {
@@ -99,9 +99,9 @@ bool is_sorted_int(Slice_Int *slice)
 }
 
 // Merges two sorted slices and returns a new slice.
-Slice_Int merge_int(Slice_Int *a, Slice_Int *b)
+SliceInt merge_int(SliceInt *a, SliceInt *b)
 {
-    Slice_Int r = new_slice_int((a->length + b->length) * 2);
+    SliceInt r = new_slice_int((a->length + b->length) * 2);
 
     int a_length = a->length;
     int b_length = b->length;

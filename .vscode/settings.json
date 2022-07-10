@@ -11,5 +11,8 @@
             "binaryPath": "c:\\Users\\91910\\Documents\\c\\mylibc2.0\\myapp",
             "binaryArgs": []
         }
-    ]
+    ],
+    "files.associations": {
+        "mylibc.h": "c"
+    }
 }

@@ -13,6 +13,16 @@ void print(const char *line)
     printf("%s", line);
 }
 
+void print_arr_int(int *arr, int length)
+{
+    printf("[");
+    for (size_t i = 0; i < length; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("]");
+}
+
 // Swaps two integers.
 void swap_int(int *a, int *b)
 {
@@ -85,6 +95,28 @@ void init_int(int *arr, int length, int value)
         arr[i] = value;
     }
 }
+void init_dbl(double *arr, int length, double value)
+{
+    for (int i = 0; i < length; i++)
+    {
+        arr[i] = value;
+    }
+}
+void init_char(char *arr, int length, int value)
+{
+    for (int i = 0; i < length; i++)
+    {
+        arr[i] = value;
+    }
+}
+
+void init_bool(bool *arr, int length, bool value)
+{
+    for (int i = 0; i < length; i++)
+    {
+        arr[i] = value;
+    }
+}
 
 // Copy an array from another array of fixed length.
 void copy_int(int *from, int *to, int length)
@@ -96,19 +128,17 @@ void copy_int(int *from, int *to, int length)
 }
 
 // Initialize an array to a value.
-void init_double(double *arr, int length, double value)
-{
-    for (int i = 0; i < length; i++)
-    {
-        arr[i] = value;
-    }
-}
 
 // Copy an array from another array of fixed length.
-void copy_double(double *from, double *to, int length)
+void copy_dbl(double *from, double *to, int length)
 {
     for (int i = 0; i < length; i++)
     {
         to[i] = from[i];
     }
+}
+
+void copy_char(char *from, char *to, int length)
+{
+    memcpy(to, from, length);
 }
