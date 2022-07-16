@@ -4,28 +4,19 @@
 
 int main()
 {
-    int seed = time(NULL);
-    // int seed = time(NULL) % RANDOM_MAX;
-    RNG rng_main = init_rng(seed);
+    RNG rng_main = init_rng(0);
 
-    SliceDbl a = new_slice_dbl(30);
-    SliceDbl b = new_slice_dbl(30);
-    display_debug_dbl(&a);
-    display_debug_dbl(&b);
+    LListf64 a = llist_new_f64();
+    display_debug_llist_f64(&a);
 
-    for (int i = 0; i < 40; i++)
+    for (int i = 0; i < 10; i++)
     {
-        double r1 = next_randf(&rng_main);
-        double r2 = next_randf(&rng_main);
-
-        append_dbl(&a, r1);
-        append_dbl(&b, r2);
+        f64 r1 = next_randf(&rng_main);
+        llist_prepend_f64(&a, r1);
+        display_debug_llist_f64(&a);
     }
 
-    display_debug_dbl(&a);
-    display_debug_dbl(&b);
-
-    delete_slice_dbl(&a);
-    delete_slice_dbl(&b);
+    display_debug_llist_f64(&a);
+    llist_delete_f64(&a);
     return 0;
 }

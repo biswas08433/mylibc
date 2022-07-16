@@ -1,22 +1,18 @@
 #pragma once
-#ifndef RANDOM_H
-#define RANDOM_H
 
-#include <math.h>
+#include "defines.h"
 
-#define RANDOM_MAX ((long long int)2 << 31)
+#define RANDOM_MAX ((u64)2 << 31)
 
 typedef struct rng
 {
-    long long int mult;
-    long long int inc;
-    long long int mod;
-    long long int seed;
+    u64 mult;
+    u64 inc;
+    u64 mod;
+    u64 seed;
 } RNG;
 
-RNG init_rng(long long int seed);
-long long int next_rand(RNG *rng1);
-long double next_randf(RNG *rng1);
-void set_seed(RNG *rng1, long long int value);
-
-#endif
+RNG init_rng(u64 seed);
+u64 next_rand(RNG *rng1);
+f64 next_randf(RNG *rng1);
+void set_seed(RNG *rng1, u64 value);

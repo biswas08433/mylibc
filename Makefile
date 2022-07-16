@@ -36,8 +36,8 @@ WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 
 all: $(APPNAME)
 
-run: all
-	./$(APPNAME).exe
+run:
+	@./$(APPNAME).exe
 
 
 # Builds the app

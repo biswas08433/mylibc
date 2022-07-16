@@ -6,12 +6,8 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
  
-File not found - *.c
 
-File not found - *.c
-
-
-# Make data base, printed on Sun Jul 10 13:45:38 2022
+# Make data base, printed on Sat Jul 16 16:24:47 2022
 
 # Variables
 
@@ -19,6 +15,8 @@ File not found - *.c
 <D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # automatic
 ?F = $(notdir $?)
+# environment
+WSLENV = WT_SESSION::WT_PROFILE_ID
 # default
 .SHELLFLAGS := -c
 # makefile (from 'Makefile', line 19)
@@ -27,12 +25,11 @@ OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
 SRC = $(shell find $(SRCDIR) -name *$(EXT))
 # makefile
 MAKEFLAGS = Rrqp
-# environment
-VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
-@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+@D = $(pa 
+tsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
 HOMEDRIVE = C:
 # automatic
@@ -41,10 +38,10 @@ HOMEDRIVE = C:
 ^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
 # makefile
 CURDIR := c:/Users/91910/Documents/c/mylibc2.0
-# default
-SHELL := sh.exe
-# makefile (from 'Makefile', line 22)
-RM = rm
+# makefile
+SHELL = C:/Program Files/Git/usr/bin/sh.exe
+# environment
+CONFIG_SITE = C:/Program Files/Git/etc/config.site
 # environment
 WINDIR = C:\WINDOWS
 # environment
@@ -52,35 +49,39 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # environment
 DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1 = 1
 # environment
+_ = C:/Program Files/Microsoft VS Code/Code.exe
+# environment
 ONEDRIVE = C:\Users\91910\OneDrive
 # environment
 PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
-# makefile (from 'Makefile', line 1)
-MAKEFILE_LIST :=  Makefile
+# makefile (from 'dep/utils/random.d', line 1)
+MAKEFILE_LIST :=  Makefile dep/llist/llist_dbl.d dep/main.d dep/mystring/mystring.d dep/self/slice_f64.d dep/self/slice_i32.d dep/sort/sort_i32.d dep/utils/helper.d dep/utils/io.d dep/utils/random.d
 # environment
 TMP = C:\Users\91910\AppData\Local\Temp
 # makefile (from 'Makefile', line 7)
 CXXFLAGS = -std=c11 -Wall -g
 # environment
-VSCODE_VERBOSE_LOGGING = true
-# environment
 PROGRAMW6432 = C:\Program Files
+# environment
+INFOPATH = C:\Program Files\Git\usr\local\info;C:\Program Files\Git\usr\share\info;C:\Program Files\Git\usr\info;C:\Program Files\Git\share\info
 # makefile (from 'Makefile', line 26)
 DEL = del
 # environment
 PROGRAMDATA = C:\ProgramData
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-0e86406f-001f-4b4a-acd3-eff98b2d7c0a-sock
+MSYSTEM_CHOST = x86_64-w64-mingw32
 # environment
-VSCODE_CWD = C:\Program Files\Microsoft VS Code
+VSCODE_CWD = C:\Users\91910\Documents\c\mylibc2.0
 # environment
-PATH = C:\cuda\v11.7\bin;C:\cuda\v11.7\libnvvp;C:\TDM-GCC-64\bin;C:\Program Files\Go\bin;C:\Program Files\CMake\bin;C:\windows\system32;C:\Program Files\Microsoft VS Code\bin;C:\Python310\;C:\Python310\Scripts\;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\opencv\build\install\x64\mingw\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Users\91910\softwares\platform-tools;C:\Users\91910\AppData\Local\Microsoft\WindowsApps;C:\Users\91910\go\bin;C:\Users\91910\AppData\Roaming\npm
+PATH = C:\Users\91910\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\91910\bin;C:\VulkanSDK\Bin;C:\cuda\v11.7\bin;C:\cuda\v11.7\libnvvp;C:\TDM-GCC-64\bin;C:\Program Files\Go\bin;C:\Program Files\CMake\bin;C:\windows\system32;C:\Program Files\Microsoft VS Code\bin;C:\Python310;C:\Python310\Scripts;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\opencv\build\install\x64\mingw\bin;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Users\91910\softwares\platform-tools;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\91910\AppData\Local\Microsoft\WindowsApps;C:\Users\91910\go\bin;C:\Users\91910\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 # environment
 ONLINESERVICES = Online Services
 # environment
 COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # makefile (from 'Makefile', line 20)
 DEP = $(OBJ:$(OBJDIR)/%.o=$(DEPDIR)/%.d)
+# environment
+LC_ALL = C
 # environment
 CHOCOLATEYLASTPATHUPDATE = 133016395437940220
 # environment
@@ -90,29 +91,44 @@ USERPROFILE = C:\Users\91910
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
+MSYSTEM_CARCH = x86_64
+# environment
+EXEPATH = C:\Program Files\Git\bin
+# environment
 ALLUSERSPROFILE = C:\ProgramData
 # environment
 GOPATH = C:\Users\91910\go
 # environment
-VSCODE_LOG_STACK = false
+PLINK_PROTOCOL = ssh
+# environment
+MSYSTEM_PREFIX = C:/Program Files/Git/mingw64
 # environment
 NUMBER_OF_PROCESSORS = 12
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # makefile (from 'Makefile', line 8)
 LDFLAGS = -lm
+# environment
+ORIGINAL_TEMP = C:/Users/91910/AppData/Local/Temp
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver
+# environment
+VK_SDK_PATH = C:\VulkanSDK
 # makefile (from 'Makefile', line 13)
 SRCDIR = ./src
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_17120_YGWONRNHIABCGMFV
+DISPLAY = needs-to-be-defined
 # environment
-VSCODE_PIPE_LOGGING = true
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_4108_SLKNADWOXNWZZSBY
+# environment
+ORIGINAL_PATH = C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\91910\bin;C:\VulkanSDK\Bin;C:\cuda\v11.7\bin;C:\cuda\v11.7\libnvvp;C:\TDM-GCC-64\bin;C:\Program Files\Go\bin;C:\Program Files\CMake\bin;C:\windows\system32;C:\Program Files\Microsoft VS Code\bin;C:\Python310;C:\Python310\Scripts;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\opencv\build\install\x64\mingw\ 
+bin;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Users\91910\softwares\platform-tools;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\91910\AppData\Local\Microsoft\WindowsApps;C:\Users\91910\go\bin;C:\Users\91910\AppData\Roaming\npm
 # environment
 COMPUTERNAME = MRSIR
+# environment
+PWD = C:/Users/91910/Documents/c/mylibc2.0
 # environment
 ASSUME_NO_MOVING_GC_UNSAFE_RISK_IT_WITH = go1.18
 # environment
@@ -120,15 +136,25 @@ PROGRAMFILES = C:\Program Files (x86)
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
+PKG_CONFIG_PATH = C:\Program Files\Git\mingw64\lib\pkgconfig;C:\Program Files\Git\mingw64\share\pkgconfig
+# environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+WT_SESSION = a8de35dc-9fd5-42dd-940a-e3db50173d9f
 # environment
 USERNAME = 91910
 # environment
 PUBLIC = C:\Users\Public
 # environment
+MANPATH = C:\Program Files\Git\mingw64\local\man;C:\Program Files\Git\mingw64\share\man;C:\Program Files\Git\usr\local\man;C:\Program Files\Git\usr\share\man;C:\Program Files\Git\usr\man;C:\Program Files\Git\share\man
+# environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\91910\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
+HOME = C:\Users\91910
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\91910\AppData\Roaming\Code\CachedData\b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from 'Makefile', line 23)
@@ -138,21 +164,34 @@ COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # environment
 LOGONSERVER = \\MRSIR
 # environment
+REGIONCODE = APJ
+# environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
 USERDOMAIN = MRSIR
 # environment
+HOSTNAME = mrsir
+# environment
 MAKELEVEL := 0
+# environment
+SSH_ASKPASS = C:/Program Files/Git/mingw64/bin/git-askpass.exe
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from 'Makefile', line 11)
 APPNAME = main
+# environment
+SHLVL = 2
 # makefile (from 'Makefile', line 6)
 CC = gcc
+# environment
+ACLOCAL_PA 
+TH = C:\Program Files\Git\mingw64\share\aclocal;C:\Program Files\Git\usr\share\aclocal
 # default
 MAKE_VERSION := 3.82.90
+# environment
+MINGW_CHOST = x86_64-w64-mingw32
 # makefile
 .DEFAULT_GOAL := all
 # makefile (from 'Makefile', line 24)
@@ -170,9 +209,13 @@ MAKE_COMMAND := make.exe
 # environment
 PROCESSOR_ARCHITEW6432 = AMD64
 # environment
+OLDPWD = C:/Users/91910/Documents/c/kitkat
+# environment
 AMDRMSDKPATH = C:\Program Files\AMD\RyzenMasterSDK\
 # default
 .VARIABLES := 
+# environment
+TMPDIR = C:\Users\91910\AppData\Local\Temp
 # automatic
 *F = $(notdir $*)
 # environment
@@ -180,9 +223,11 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD
 # environment
 OS = Windows_NT
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\550608ea6833fb253414b69ddff6569a-1.68.1-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\550608ea6833fb253414b69ddff6569a-1.69.1-main-sock
 # makefile (from 'Makefile', line 12)
 EXT = .c
+# makefile (from 'Makefile', line 22)
+RM = rm
 # environment
 HOMEPATH = \Users\91910
 # environment
@@ -194,11 +239,14 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
-REGIONCODE = APJ
+ORIGINAL_TMP = C:/Users/91910/AppData/Local/Temp
 # environment
 SYSTEMROOT = C:\WINDOWS
 # automatic
-+D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
++D = $(patsubst %/, 
+%,$(patsubst %\,%,$(dir $+)))
+# environment
+MINGW_PREFIX = C:/Program Files/Git/mingw64
 # environment
 PLATFORMCODE = KV
 # automatic
@@ -208,7 +256,11 @@ APPDATA = C:\Users\91910\AppData\Roaming
 # environment
 TEMP = C:\Users\91910\AppData\Local\Temp
 # environment
+WT_PROFILE_ID = {2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}
+# environment
 COMSPEC = C:\WINDOWS\system32\cmd.exe
+# environment
+MSYSTEM = MINGW64
 # default
 MAKEFILES := 
 # makefile (from 'Makefile', line 15)
@@ -218,7 +270,7 @@ DEPDIR = ./dep
 # makefile (from 'Makefile', line 14)
 OBJDIR = ./obj
 # environment
-LC_ALL = C
+ELECTRON_NO_ATTACH_CONSOLE = 1
 # makefile (from 'Makefile', line 28)
 WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 # automatic
@@ -230,25 +282,30 @@ SUFFIXES :=
 # environment
 SYSTEMDRIVE = C:
 # environment
-SESSIONNAME = Console
-# environment
 PROCESSOR_REVISION = 6001
 # default
 .RECIPEPREFIX := 
 # environment
+VULKAN_SDK = C:\VulkanSDK
+# environment
 CUDA_PATH_V11_7 = C:\cuda\v11.7
 # makefile (from 'Makefile', line 27)
-EXE = .exe
+EX 
+E = .exe
 # environment
 LANG = C
 # environment
 PROCESSOR_LEVEL = 23
 # environment
-VSCODE_PID = 17120
+TERM = xterm-256color
+# environment
+VSCODE_PID = 4108
+# environment
+MINGW_PACKAGE_PREFIX = mingw-w64-x86_64
 # environment
 USERDOMAIN_ROAMINGPROFILE = MRSIR
 # variable set hash-table stats:
-# Load=116/1024=11%, Rehash=0, Collisions=18/173=10%
+# Load=144/1024=14%, Rehash=0, Collisions=22/219=10%
 
 # Pattern-specific Variable Values
 
@@ -256,38 +313,21 @@ USERDOMAIN_ROAMINGPROFILE = MRSIR
 
 # Directories
 
-# C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR (key C:/Program Files/NVIDIA Corporation/NVIDIA NvDLISR, mtime 1653423698): 5 files, no impossibilities.
-# C:\windows\System32\WindowsPowerShell\v1.0\ (key C:/windows/System32/WindowsPowerShell/v1.0/, mtime 1653427302): 30 files, no impossibilities.
-# C:\WINDOWS\Sys 
-tem32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1653427302): 155 files, no impossibilities.
-# . (key c:/Users/91910/Documents/c/mylibc2.0, mtime 1657436125): 10 files, no impossibilities.
-# C:\cuda\v11.7\libnvvp (key C:/cuda/v11.7/libnvvp, mtime 1657359341): 14 files, no impossibilities.
-# C:\Users\91910\softwares\platform-tools (key C:/Users/91910/softwares/platform-tools, mtime 1657293035): 17 files, no impossibilities.
-# C:\TDM-GCC-64\bin (key C:/TDM-GCC-64/bin, mtime 1657356041): 71 files, no impossibilities.
-# C:\Python310\ (key C:/Python310/, mtime 1656948363): 19 files, no impossibilities.
-# C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1656701318): 8 files, no impossibilities.
-# C:\windows\System32\OpenSSH\: could not be stat'd.
-# C:\Python310\Scripts\ (key C:/Python310/Scripts/, mtime 1656948363): 7 files, no impossibilities.
-# C:\Program Files\CMake\bin (key C:/Program Files/CMake/bin, mtime 1656999314): 7 files, no impossibilities.
-# C:\WINDOWS (key C:/WINDOWS, mtime 1657103917): 120 files, no impossibilities.
-# C:\opencv\build\install\x64\mingw\bin (key C:/opencv/build/install/x64/mingw/bin, mtime 1657000543): 60 files, no impossibilities.
-# C:\cuda\v11.7\bin (key C:/cuda/v11.7/bin, mtime 1657359344): 45 files, no impossibilities.
-# C:\ProgramData\chocolatey\bin (key C:/ProgramData/chocolatey/bin, mtime 1657165944): 11 files, no impossibilities.
-# C:\windows (key C:/windows, mtime 1657103917): 120 files, no impossibilities.
-# C:\Program Files\Go\bin (key C:/Program Files/Go/bin, mtime 1656698363): 4 files, no impossibilities.
-# C:\Users\91910\go\bin (key C:/Users/91910/go/bin, mtime 1657359575): 11 files, no impossibilities.
-# C:\windows\System32\Wbem (key C:/windows/System32/Wbem, mtime 1653427302): 155 files, no impossibilities.
+# C:\Program Files\Git\usr\bin (key C:/Program Files/Git/usr/bin, mtime 1656701318): 306 files, n 
+o impossibilities so far.
+# src/sort (key c:/Users/91910/Documents/c/mylibc2.0/src/sort, mtime 1657963316): No files, no impossibilities so far.
+# . (key c:/Users/91910/Documents/c/mylibc2.0, mtime 1657968847): 10 files, no impossibilities.
+# src/llist (key c:/Users/91910/Documents/c/mylibc2.0/src/llist, mtime 1657364137): No files, no impossibilities so far.
+# C:\Program Files\Git\usr\local\bin: could not be stat'd.
+# src/utils (key c:/Users/91910/Documents/c/mylibc2.0/src/utils, mtime 1657391136): No files, no impossibilities so far.
 # src (key c:/Users/91910/Documents/c/mylibc2.0/src, mtime 1657362968): No files, no impossibilities so far.
-# C:\Program Files\nodejs\ (key C:/Program Files/nodejs/, mtime 1657165917): 13 files, no impossibilities.
-# C:\Users\91910\AppData\Roaming\npm (key C:/Users/91910/AppData/Roaming/npm, mtime 1657167494): 9 files, no impossibilities.
-# C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1653427302): 30 files, no impossibilities.
-# C:\windows\system32 (key C:/windows/system32, mtime 1657292644): 2923 files, no impossibilities.
-# C:\Program Files\Microsoft VS Code\bin (key C:/Program Files/Microsoft VS Code/bin, mtime 1656323065): 4 files, no impossibilities.
-# C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
-# C:\Users\91910\AppData\Local\Microsoft\WindowsApps (key C:/Users/91910/AppData/Local/Microsoft/WindowsApps, mtime 1657294341): 28 files, no impossibilities.
-# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1657292644): 2923 files, no impossibilities.
+# src/mystring (key c:/Users/91910/Documents/c/mylibc2.0/src/mystring, mtime 1657084205): No files, no impossibilities so far.
+# C:\Users\91910\bin: could not be stat'd.
+# C:\Program Files\Git\mingw64\bin (key C:/Program Files/Git/mingw64/bin, mtime 1656701318): 143 files, no impossibilities.
+# src/self (key c:/Users/91910/Documents/c/mylibc2.0/src/self, mtime 16579618 
+38): No files, no impossibilities so far.
 
-# 6799 files, no impossibilities in 29 directories.
+# 459 files, no impossibilities in 11 directories.
 
 # Implicit Rules
 
@@ -305,6 +345,47 @@ obj/%.o: src/%.c
 
 # Files
 
+# Not a target:
+src/sort/../include/slice_i32.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/sort/sort_i32.o: src/sort/sort_i32.c src/sort/../include/sort_i32.h src/sort/../include/defines.h src/sort/../include/slice_i32.h src/sort/../include/helper.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/include/defines.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/main.o: src/main.c  
+src/include/mylibc.h src/include/defines.h src/include/random.h src/include/slice_i32.h src/include/slice_f64.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/self/slice_f64.o: src/self/slice_f64.c src/self/../include/slice_f64.h src/self/../include/defines.h src/self/../include/helper.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/utils/random.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 11:16:48
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/include/slice_f64.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 all: main
 #  Phony target (prerequisite of .PHONY).
 #  Command line target.
@@ -313,12 +394,97 @@ all: main
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/6=0%
 
-.PHONY: all clean cleandep cleanw cleandepw run
+dep/self/slice_i32.d: src/self/slice_i32.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'self/slice_i32'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+.PHONY: all run clean fullclean cleandep cleanw cleandepw
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+dep/llist/llist_dbl.d: src/llist/llist_dbl.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'llist/llist_dbl'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+# Not a target:
+src/utils/../include/defines.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/utils/helper.d: src/utils/helper.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'utils/helper'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+obj/utils/io.o: src/utils/io.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'utils/io'
+#  Last modified 2022-07-16 16: 
+23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+# Not a target:
+src/sort/../include/helper.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/utils/../include/mystring.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/mystring/mystring.o: src/mystring/mystring.c src/mystring/../include/mystring.h src/mystring/../include/defines.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/sort/sort_i32.o: src/sort/sort_i32.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sort/sort_i32'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+obj/main.o: src/main.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
 
 # Not a target:
 .SUFFIXES:
@@ -327,9 +493,101 @@ all: main
 #  File has not been updated.
 
 # Not a target:
+src/utils/../include/io.h:
+#  Implicit rule search has not been  
+done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-10 12:23:46
+#  Last modified 2022-07-16 16:23:59
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/include/mylibc.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/utils/random.d: src/utils/random.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'utils/random'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+# Not a target:
+src/self/../include/slice_i32.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/self/../include/defines.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/sort/../include/sort_i32.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/self/../include/slice_f64.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/utils/helper.o: src/utils/helper.c src/utils/../include/helper.h src/utils/../include/defines.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has  
+not been updated.
+
+dep/self/slice_i32.o: src/self/slice_i32.c src/self/../include/slice_i32.h src/self/../include/defines.h src/self/../include/helper.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/self/slice_f64.o: src/self/slice_f64.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'self/slice_f64'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+# Not a target:
+src/include/slice_i32.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/mystring/mystring.o: src/mystring/mystring.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'mystring/mystring'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+ 
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+# Not a target:
+src/utils/io.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 11:24:35
 #  File has been updated.
 #  Successfully updated.
 
@@ -338,11 +596,61 @@ cleanw:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 72):
+#  recipe to execute (from 'Makefile', line 76):
 	$(DEL) $(WDELOBJ) $(DEP) $(APPNAME)$(EXE)
+
+dep/llist/llist_dbl.o: src/llist/llist_dbl.c src/llist/../include/llist_dbl.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/mystring/../include/defines.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/sort/sort_i32.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 16:21:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/main.c:
+#  Implicit rule search has 
+ been done.
+#  Last modified 2022-07-16 14:44:22
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/self/slice_f64.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 14:46:28
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/mystring/../include/mystring.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/utils/random.o: src/utils/random.c src/utils/../include/random.h src/utils/../include/defines.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/sort/../include/defines.h:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -352,7 +660,7 @@ cleandep:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 67):
+#  recipe to execute (from 'Makefile', line 71):
 	$(RM)  -f $(DEP)
 
 cleandepw:
@@ -360,32 +668,150 @@ cleandepw:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 76):
+#  recipe to execute (from 'Makefile', line 80):
 	$(DEL) $(DEP)
 
-run: all
+obj/llist/llist_dbl.o: src/llist/llist_dbl.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'llist/llist_dbl'
+#  Last modified 2022-07-16 16:23:44 
+
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+run:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 40):
-	./$(APPNAME).exe
+	@./$(APPNAME).exe
 
 clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execut 
-e (from 'Makefile', line 63):
+#  recipe to execute (from 'Makefile', line 63):
 	@$(RM) -f $(DELOBJ) $(DEP) $(APPNAME)
 
-main:
+dep/utils/io.d: src/utils/io.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'utils/io'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+obj/utils/helper.o: src/utils/helper.c
+#  Implicit rule search has been done.
+#  Implicit/static p 
+attern stem: 'utils/helper'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+# Not a target:
+src/mystring/mystring.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 14:45:13
+#  File has been updated.
+#  Successfully updated.
+
+obj/self/slice_i32.o: src/self/slice_i32.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'self/slice_i32'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+fullclean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 66):
+	@$(RM) -f $(DELOBJ) $(DEP) $(APPNAME)
+	@$(RM) -r ./dep ./obj
+
+dep/sort/sort_i32.d: src/sort/sort_i32.c
+#  Im 
+plicit rule search has been done.
+#  Implicit/static pattern stem: 'sort/sort_i32'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+# Not a target:
+src/llist/../include/llist_dbl.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/main.d: src/main.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+# Not a target:
+src/include/random.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+dep/self/slice_f64.d: src/self/slice_f64.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem 
+: 'self/slice_f64'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+# Not a target:
+src/utils/../include/helper.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/utils/random.o: src/utils/random.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'utils/random'
+#  Last modified 2022-07-16 16:23:45
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 57):
+	@$(MKDIR_P) $(dir $@)
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+main: obj/llist/llist_dbl.o obj/main.o obj/mystring/mystring.o obj/self/slice_f64.o obj/self/slice_i32.o obj/sort/sort_i32.o obj/utils/helper.o obj/utils/io.o obj/utils/random.o
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
+#  Needs to  
+be updated (-q is set).
 # automatic
 # @ := main
 # automatic
@@ -393,36 +819,84 @@ main:
 # automatic
 # * := 
 # automatic
-# + := 
+# + := obj/llist/llist_dbl.o obj/main.o obj/mystring/mystring.o obj/self/slice_f64.o obj/self/slice_i32.o obj/sort/sort_i32.o obj/utils/helper.o obj/utils/io.o obj/utils/random.o
 # automatic
 # | := 
 # automatic
-# < := 
+# < := obj/llist/llist_dbl.o
 # automatic
-# ^ := 
+# ^ := obj/llist/llist_dbl.o obj/main.o obj/mystring/mystring.o obj/self/slice_f64.o obj/self/slice_i32.o obj/sort/sort_i32.o obj/utils/helper.o obj/utils/io.o obj/utils/random.o
 # automatic
-# ? := 
+# ? := obj/llist/llist_dbl.o obj/main.o obj/mystring/mystring.o obj/self/slice_f64.o obj/self/slice_i32.o obj/sort/sort_i32.o obj/utils/helper.o obj/utils/io.o obj/utils/random.o
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/16=6%
 #  recipe to execute (from 'Makefile', line 45):
 	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
+# Not a target:
+src/self/slice_i32.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 14:59:43
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/utils/../include/random.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/llist/llist_dbl.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 14:40:12
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/self/../include/helper.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been up 
+dated.
+
+dep/mystring/mystring.d: src/mystring/mystring.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'mystring/mystring'
+#  Last modified 2022-07-16 16:23:44
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(MKDIR_P) $(dir $@)
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
+
+# Not a target:
+src/utils/helper.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-16 16:22:51
+#  File has been updated.
+#  Successfully updated.
+
+dep/utils/io.o: src/utils/io.c src/utils/../include/io.h src/utils/../include/defines.h src/utils/../include/helper.h src/utils/../include/mystring.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/37=0%
+# Load=69/1024=7%, Rehash=0, Collisions=17/203=8%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 7 (6) / strings = 3543 / storage = 53823 B / avg = 15 B
-# current buf: size = 8174 B / used = 4833 B / count = 261 / avg = 18 B
-# other used: total = 45649 B / count = 3282 / avg = 13 B
-# other free: total = 54 B / max = 14 B / min = 6 B / avg = 9 B
+# strcache buffers: 1 (0) / strings = 524 / storage = 7773 B / avg = 14 
+ B
+# current buf: size = 8174 B / used = 7773 B / count = 524 / avg = 14 B
 
-# strcache performance: lookups = 6862 / hit rate = 48%
+# strcache performance: lookups = 640 / hit rate = 18%
 # hash-table stats:
-# Load=3543/8192=43%, Rehash=0, Collisions=2336/6862=34%
-# Finished Make data base on Sun Jul 10 13:45:38 2022
+# Load=524/8192=6%, Rehash=0, Collisions=31/640=5%
+# Finished Make data base on Sat Jul 16 16:24:47 2022
 
  

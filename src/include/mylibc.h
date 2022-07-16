@@ -1,13 +1,7 @@
 #pragma once
-#ifndef MYLIBC_H
-#define MYLIBC_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#include "slice_dbl.h"
+#include "defines.h"
 #include "random.h"
-#include "helper.h"
-
-#endif
+#include "slice_i32.h"
+#include "slice_f64.h"
+#include "llist_f64.h"

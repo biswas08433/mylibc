@@ -13,6 +13,8 @@
         }
     ],
     "files.associations": {
-        "mylibc.h": "c"
+        "mylibc.h": "c",
+        "slice_dbl.h": "c",
+        "slice_f64.h": "c"
     }
 }

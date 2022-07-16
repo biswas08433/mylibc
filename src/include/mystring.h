@@ -1,22 +1,15 @@
 #pragma once
-#ifndef MYSTRING_H
-#define MYSTRING_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <ctype.h>
+#include "defines.h"
 
 typedef struct mystring
 {
     char *data;
-    int len;
-    int cap;
+    u32 len;
+    u32 cap;
 } MyString;
 
 MyString new_string(const char *literal);
 
 char *trimSpace(char *str);
-void print_string(MyString *s);
-
-#endif
+void print_str(MyString *s);

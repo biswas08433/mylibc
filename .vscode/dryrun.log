@@ -1,9 +1,6 @@
-make.exe all --dry-run --always-make --keep-going --print-directory
-File not found - *.c
-
-File not found - *.c
-
+make.exe all --dry-run --keep-going --print-directory
 make.exe: Entering directory 'c:/Users/91910/Documents/c/mylibc2.0'
-gcc -std=c11 -Wall -g -o main  -lm
+gcc -std=c11 -Wall -g -o main obj/llist/llist_dbl.o obj/main.o obj/mystring/mystring.o obj/self/slice_f64.o obj/self/slice_i32.o obj/sort/sort_i32.o obj/utils/helper.o obj/utils/io.o obj/utils/random.o -lm
+ 
 make.exe: Leaving directory 'c:/Users/91910/Documents/c/mylibc2.0'
  
