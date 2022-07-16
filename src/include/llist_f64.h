@@ -28,12 +28,15 @@ u32 llist_append_f64(LList_f64 *self, f64 value);
 // \return Updated length. -1 if any error.
 u32 llist_prepend_f64(LList_f64 *self, f64 value);
 
-void llist_insert_f64(i, v);
-void llist_delete_f64(i);
-void llist_get_f64(i);
-void llist_set_f64(i, v);
+// void llist_insert_f64(i, v);
+// void llist_delete_f64(i);
+// void llist_get_f64(i);
+// void llist_set_f64(i, v);
 
-void llist_search_f64(i, v);
+// void llist_search_f64(i, v);
 
 void display_llist_f64(LList_f64 *self);
 void display_debug_llist_f64(LList_f64 *self);
+
+// Delete the LList
+void llist_delete_f64(LList_f64 *self);

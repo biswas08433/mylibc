@@ -12,12 +12,23 @@ LList_f64 llist_new_f64()
     return temp;
 }
 
+// Internal function for newly allocated node.
 LNode_f64 *lnode_new_f64(f64 value)
 {
     LNode_f64 *temp = (LNode_f64 *)malloc(sizeof(LNode_f64));
     temp->data = value;
     temp->next = NULL;
     return temp;
+}
+
+// Internal function for deleting and freeing a node.
+void lnode_delete_f64(LNode_f64 *self)
+{
+    if (self != NULL)
+    {
+        free(self);
+        self = NULL;
+    }
 }
 
 u32 llist_append_f64(LList_f64 *self, f64 value)
@@ -67,6 +78,20 @@ u32 llist_prepend_f64(LList_f64 *self, f64 value)
     }
     self->len += 1;
     return self->len;
+}
+
+void llist_delete_f64(LList_f64 *self)
+{
+    if (self->head != NULL)
+    {
+        LNode_f64 *temp2 = self->head;
+        for (LNode_f64 *temp1 = self->head; temp1 != NULL; temp1 = temp2)
+        {
+            temp2 = temp2->next;
+            lnode_delete_f64(temp1);
+        }
+        self->head = NULL;
+    }
 }
 
 void display_llist_f64(LList_f64 *self)
