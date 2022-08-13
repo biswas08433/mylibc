@@ -1,9 +1,0 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-File not found - *.c
-
-File not found - *.c
-
-make.exe: Entering directory 'c:/Users/91910/Documents/c/mylibc'
-gcc -std=c11 -Wall -g -o main  -lm
-make.exe: Leaving directory 'c:/Users/91910/Documents/c/mylibc'
- 

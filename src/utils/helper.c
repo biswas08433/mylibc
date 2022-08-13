@@ -43,15 +43,6 @@ i8 comp_f64(f64 a, f64 b)
     return 0;
 }
 
-// Returns the string version of bool value.
-char *bool_str(b8 b)
-{
-    char *t = "true";
-    char *f = "false";
-
-    return b ? t : f;
-}
-
 // Returns the maximum of two integers.
 i32 max_i64(i32 a, i32 b)
 {
