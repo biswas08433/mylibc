@@ -1,4 +1,5 @@
 #pragma once
 
 #include "defines.h"
-#include "list.h"
+
+char *bool_str(b8 b);

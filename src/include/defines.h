@@ -43,4 +43,7 @@ STATIC_ASSERT(sizeof(b8) == 1, "b8 not right size");
 #define TRUE 1
 #define FALSE 0
 
-#define MY_API __declspec(dllexport)
+#define EPSILON (double)1e-15
+#define __STDC_WANT_LIB_EXT1__ 1
+
+//#define MY_API __declspec(dllexport)

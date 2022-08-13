@@ -6,7 +6,7 @@
 #include <float.h>
 #include <math.h>
 
-Slice_f64 new_slice_f64(u32 capacity)
+Slice_f64 slice_new_f64(u32 capacity)
 {
     Slice_f64 temp_slice;
     temp_slice.length = 0;
@@ -19,12 +19,12 @@ Slice_f64 new_slice_f64(u32 capacity)
 }
 Slice_f64 copy_slice_f64(Slice_f64 from)
 {
-    Slice_f64 temp_slice = new_slice_f64(from.capacity);
+    Slice_f64 temp_slice = slice_new_f64(from.capacity);
     temp_slice.length = from.length;
     copy_f64(from.arr, temp_slice.arr, from.length);
     return temp_slice;
 }
-Slice_f64 slice_f64_from(Slice_f64 *self, u32 start, u32 end, b8 w_perm)
+Slice_f64 slice_from_f64(Slice_f64 *self, u32 start, u32 end, b8 w_perm)
 {
     Slice_f64 new_slice;
     new_slice.length = end - start;
@@ -34,7 +34,7 @@ Slice_f64 slice_f64_from(Slice_f64 *self, u32 start, u32 end, b8 w_perm)
 
     return new_slice;
 }
-Slice_f64 new_slice_f64_from(Slice_f64 *self, u32 start, u32 end)
+Slice_f64 slice_new_from_f64(Slice_f64 *self, u32 start, u32 end)
 {
     Slice_f64 new_slice;
     new_slice.length = end - start;
@@ -125,7 +125,7 @@ u32 bsearch_f64(Slice_f64 *self, f64 value)
     // NOT IMPLEMENTED
     return 0;
 }
-u32 max_slice_f64(Slice_f64 *self)
+u32 slice_max_f64(Slice_f64 *self)
 {
     f64 t = DBL_MIN;
     for (u32 i = 0; i < self->length; i++)
@@ -137,7 +137,7 @@ u32 max_slice_f64(Slice_f64 *self)
     }
     return t;
 }
-u32 min_slice_f64(Slice_f64 *self)
+u32 slice_min_f64(Slice_f64 *self)
 {
     f64 t = DBL_MAX;
     for (u32 i = 0; i < self->length; i++)
@@ -212,7 +212,7 @@ u32 cap_f64(Slice_f64 *self)
     return self->capacity;
 }
 
-void delete_slice_f64(Slice_f64 *self)
+void slice_free_f64(Slice_f64 *self)
 {
     if (self->w_perm == TRUE)
     {

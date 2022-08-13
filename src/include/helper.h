@@ -8,8 +8,6 @@ void swap_f64(f64 *a, f64 *b);
 i8 comp_i32(i32 a, i32 b);
 i8 comp_f64(f64 a, f64 b);
 
-char *bool_str(b8 b);
-
 i32 max_i64(i32 a, i32 b);
 i32 min_i64(i32 a, i32 b);
 

@@ -226,7 +226,7 @@ u32 cap_i32(Slice_i32 *self)
     return self->capacity;
 }
 
-void slice_delete_i32(Slice_i32 *self)
+void slice_free_i32(Slice_i32 *self)
 {
     if (self->w_perm == TRUE && self->arr != NULL)
     {
