@@ -2,8 +2,7 @@
 
 #include "defines.h"
 
-typedef struct list
-{
+typedef struct list {
   // pointer to the underlying array
   void *arr;
 

@@ -2,12 +2,11 @@
 
 #include "defines.h"
 
-typedef struct slice_f64
-{
-    f64 *arr;     // pointer to the underlying array
-    u32 length;   // length of the self
-    u32 capacity; // capacity of the self before it reallocates
-    b8 w_perm;    // write permission
+typedef struct slice_f64 {
+  f64 *arr;      // pointer to the underlying array
+  u32 length;    // length of the self
+  u32 capacity;  // capacity of the self before it reallocates
+  b8 w_perm;     // write permission
 } Slice_f64;
 
 // Returns a new self of f64.
@@ -21,7 +20,7 @@ u32 insert_f64(Slice_f64 *self, f64 data, u32 index);
 u32 delete_f64(Slice_f64 *self, u32 index);
 
 u32 search_f64(Slice_f64 *self, f64 value);
-u32 bsearch_f64(Slice_f64 *self, f64 value); // NOT IMPLEMENTED
+u32 bsearch_f64(Slice_f64 *self, f64 value);  // NOT IMPLEMENTED
 
 u32 slice_max_f64(Slice_f64 *self);
 u32 slice_min_f64(Slice_f64 *self);
