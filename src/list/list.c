@@ -6,12 +6,10 @@
 
 #include "../include/strconv.h"
 
-List list_new(u32 capacity, u32 elem_size)
-{
+List list_new(u32 capacity, u32 elem_size) {
   List temp;
   temp.arr = calloc(capacity, elem_size);
-  if (temp.arr == NULL)
-  {
+  if (temp.arr == NULL) {
     fprintf(stderr, "Allocation failed");
     exit(EXIT_FAILURE);
   }
@@ -24,8 +22,7 @@ List list_new(u32 capacity, u32 elem_size)
   return temp;
 }
 
-List list_copy(const List *self)
-{
+List list_copy(const List *self) {
   List temp = list_new(self->capacity, self->elem_size);
   temp.elem_size = self->elem_size;
   temp.length = self->length;
@@ -34,8 +31,7 @@ List list_copy(const List *self)
   temp.print_func = self->print_func;
 
   // check if self is invalid
-  if (self->arr == NULL)
-  {
+  if (self->arr == NULL) {
     fprintf(stderr, "Given list was empty");
     return temp;
   }
@@ -44,8 +40,7 @@ List list_copy(const List *self)
   return temp;
 }
 
-List list_from(const List *self, u32 start, u32 end, b8 w_perm)
-{
+List list_from(const List *self, u32 start, u32 end, b8 w_perm) {
   List temp;
   temp.length = end - start;
   temp.capacity = w_perm ? self->capacity - start : 0;
@@ -54,8 +49,7 @@ List list_from(const List *self, u32 start, u32 end, b8 w_perm)
   temp.print_func = self->print_func;
 
   // check if self is invalid
-  if (self->arr == NULL)
-  {
+  if (self->arr == NULL) {
     fprintf(stderr, "Given list was empty");
     return temp;
   }
@@ -63,8 +57,7 @@ List list_from(const List *self, u32 start, u32 end, b8 w_perm)
   return temp;
 }
 
-List list_new_from(const List *self, u32 start, u32 end)
-{
+List list_new_from(const List *self, u32 start, u32 end) {
   // init
   List temp;
   temp.length = end - start;
@@ -73,14 +66,12 @@ List list_new_from(const List *self, u32 start, u32 end)
   temp.arr = calloc(temp.capacity, self->elem_size);
   temp.print_func = self->print_func;
 
-  if (temp.arr == NULL)
-  {
+  if (temp.arr == NULL) {
     fprintf(stderr, "allocation failed!");
     exit(EXIT_FAILURE);
   }
   // check if self is invalid
-  if (self->arr == NULL)
-  {
+  if (self->arr == NULL) {
     fprintf(stderr, "Given list was empty");
     return temp;
   }
@@ -89,134 +80,107 @@ List list_new_from(const List *self, u32 start, u32 end)
   return temp;
 }
 
-u32 list_append(List *self, void *data)
-{
+u32 list_append(List *self, void *data) {
   update_list_cap(self, FALSE);
-  if (self == NULL || data == NULL)
-  {
+  if (self == NULL || data == NULL) {
     fprintf(stderr, "data cannot be null.");
     exit(EXIT_FAILURE);
   }
-  if (self->w_perm == TRUE)
-  {
+  if (self->w_perm == TRUE) {
     memcpy(self->arr + (self->length * self->elem_size), data, self->elem_size);
     self->length += 1;
     return self->length;
-  }
-  else
-  {
+  } else {
     fprintf(stderr, "Write denied!\n");
     exit(EXIT_FAILURE);
   }
 }
 
-u32 list_insert(List *self, void *data, u32 index)
-{
+u32 list_insert(List *self, void *data, u32 index) {
   update_list_cap(self, FALSE);
-  if (self == NULL || data == NULL)
-  {
+  if (self == NULL || data == NULL) {
     fprintf(stderr, "data cannot be null.");
     exit(EXIT_FAILURE);
   }
 
-  if (self->w_perm == TRUE)
-  {
-    for (u32 i = self->length - 1; i > index; i -= 1)
-    {
-      memcpy(self->arr + ((i + 1) * self->elem_size), self->arr + (i * self->elem_size), self->elem_size);
+  if (self->w_perm == TRUE) {
+    for (u32 i = self->length - 1; i > index; i -= 1) {
+      memcpy(self->arr + ((i + 1) * self->elem_size),
+             self->arr + (i * self->elem_size), self->elem_size);
     }
     memcpy(self->arr + (index * self->elem_size), data, self->elem_size);
     self->length += 1;
     return self->length;
-  }
-  else
-  {
+  } else {
     fprintf(stderr, "Write denied!\n");
     exit(EXIT_FAILURE);
   }
 }
 
-u32 list_delete(List *self, u32 index)
-{
-  if (self->w_perm == TRUE)
-  {
-    for (u32 i = index; i < self->length + 1; i += 1)
-    {
-      memcpy(self->arr + (i * self->elem_size), self->arr + ((i + 1) * self->elem_size), self->elem_size);
+u32 list_delete(List *self, u32 index) {
+  if (self->w_perm == TRUE) {
+    for (u32 i = index; i < self->length + 1; i += 1) {
+      memcpy(self->arr + (i * self->elem_size),
+             self->arr + ((i + 1) * self->elem_size), self->elem_size);
     }
     self->length -= 1;
     update_list_cap(self, TRUE);
     return self->length;
-  }
-  else
-  {
+  } else {
     fprintf(stderr, "Write denied!\n");
     exit(EXIT_FAILURE);
   }
 }
 
-void list_set_print_func(List *self, void (*print_func)(const void *elem))
-{
+void list_set_print_func(List *self, void (*print_func)(const void *elem)) {
   self->print_func = print_func;
 }
-void list_display_dbg(const List *self)
-{
-  if (self->print_func == NULL)
-  {
+
+void list_display(const List *self) {
+  if (self->print_func == NULL) {
+    fprintf(stderr, "No printing function found; Provide one.\n");
+    return;
+  }
+  printf("[");
+  for (size_t i = 0; i < self->length; i++) {
+    self->print_func(self->arr + (i * self->elem_size));
+    if (i != self->length - 1) printf(",");
+  }
+  printf("]\n");
+}
+
+void list_display_dbg(const List *self) {
+  if (self->print_func == NULL) {
     fprintf(stderr, "No printing function found; Provide one.\n");
     return;
   }
   printf("[<data: %p, elem_size: %d, len: %d, cap: %d, wperm: %s> ", self->arr,
          self->elem_size, self->length, self->capacity, bool_str(self->w_perm));
-  for (size_t i = 0; i < self->length; i++)
-  {
+  for (size_t i = 0; i < self->length; i++) {
     self->print_func(self->arr + (i * self->elem_size));
-    if (i != self->length - 1)
-      printf(",");
-  }
-  printf("]\n");
-}
-void list_display(const List *self)
-{
-  if (self->print_func == NULL)
-  {
-    fprintf(stderr, "No printing function found; Provide one.\n");
-    return;
-  }
-  printf("[");
-  for (size_t i = 0; i < self->length; i++)
-  {
-    self->print_func(self->arr + (i * self->elem_size));
-    if (i != self->length - 1)
-      printf(",");
+    if (i != self->length - 1) printf(",");
   }
   printf("]\n");
 }
 
-void *list_get(const List *self, u32 index)
-{
-  if (self->arr == NULL)
-  {
+void *list_get(const List *self, u32 index) {
+  if (self->arr == NULL) {
     return NULL;
   }
 
   // check if index is out of bound
-  if (index >= self->length || index < 0)
-  {
+  if (index >= self->length || index < 0) {
     fprintf(stderr, "invalid access: <index out of bound>");
     return NULL;
   }
   return self->arr + (index * self->elem_size);
 }
 
-void list_set(const List *self, u32 index, void *data)
-{
-  if (self->arr == NULL)
-  {
+void list_set(const List *self, u32 index, void *data) {
+  if (self->arr == NULL) {
     return;
   }
-  if (index >= self->length || index < 0 || self->w_perm == FALSE)
-  {
+  if (index >= self->length || index < 0 || self->w_perm == FALSE) {
     fprintf(stderr, "invalid access");
     return;
   }
@@ -226,34 +190,26 @@ void list_set(const List *self, u32 index, void *data)
 u32 list_len(const List *self) { return self->length; }
 u32 list_cap(const List *self) { return self->capacity; }
 
-void list_free(List *self)
-{
-  if (self->w_perm == TRUE && self->arr != NULL)
-  {
+void list_free(List *self) {
+  if (self->w_perm == TRUE && self->arr != NULL) {
     free(self->arr);
     self->arr = NULL;
   }
 }
 
-void update_list_cap(List *self, b8 can_shrink)
-{
-  if (self->length == self->capacity && self->w_perm == TRUE)
-  {
+void update_list_cap(List *self, b8 can_shrink) {
+  if (self->length == self->capacity && self->w_perm == TRUE) {
     self->capacity *= 2;
     self->arr = realloc(self->arr, self->capacity * self->elem_size);
-    if (self->arr == NULL)
-    {
+    if (self->arr == NULL) {
       fprintf(stderr, "capacity increase: memory allocation failed");
       exit(EXIT_FAILURE);
     }
-  }
-  else if (self->length < (self->capacity / 2) && self->w_perm == TRUE &&
-           can_shrink)
-  {
+  } else if (self->length < (self->capacity / 2) && self->w_perm == TRUE &&
+             can_shrink) {
     self->capacity /= 2;
     self->arr = realloc(self->arr, self->capacity * self->elem_size);
-    if (self->arr == NULL)
-    {
+    if (self->arr == NULL) {
       fprintf(stderr, "capacity decrease: memory allocation failed");
       exit(EXIT_FAILURE);
     }

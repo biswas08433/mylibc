@@ -4,7 +4,7 @@
 
 # Compiler settings - Can be customized.
 CC = gcc
-CXXFLAGS = -std=c11 -Wall -g
+CXXFLAGS = -std=c11 -g -Werror -Wall
 LDFLAGS = -lm
 
 # Makefile settings - Can be customized.
@@ -22,10 +22,6 @@ DEP = $(OBJ:$(OBJDIR)/%.o=$(DEPDIR)/%.d)
 RM = rm
 DELOBJ = $(OBJ)
 MKDIR_P = mkdir -p
-# Windows OS variables & settings
-DEL = del
-EXE = .exe
-WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 
 ########################################################################
 ####################### Targets beginning here #########################
@@ -37,7 +33,7 @@ WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
 all: $(APPNAME)
 
 run:
-	@./$(APPNAME).exe
+	@./$(APPNAME)
 
 
 # Builds the app
@@ -69,12 +65,3 @@ fullclean:
 # Cleans only all files with the extension .d
 cleandep:
 	$(RM)  -f $(DEP)
-
-#################### Cleaning rules for Windows OS #####################
-# Cleans complete project
-cleanw:
-	$(DEL) $(WDELOBJ) $(DEP) $(APPNAME)$(EXE)
-
-# Cleans only all files with the extension .d
-cleandepw:
-	$(DEL) $(DEP)

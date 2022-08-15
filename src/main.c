@@ -1,36 +1,22 @@
 #include <stdio.h>
 
 #include "include/mylibc.h"
-
-typedef struct rs {
-  i32 data1;
-  i32 data2;
-  i32 data3;
-} RS;
-
-void Print_RS(const void *elem) {
-  RS *temp = (RS *)elem;
-  printf("{%d, %d, %d}", temp->data1, temp->data2, temp->data3);
-}
+#include <time.h>
 
 int main() {
-  List a = list_new(10, sizeof(RS));
-  RS rs1 = {.data1 = 234, .data2 = 2565, .data3 = 92436};
-  RS rs2 = {.data1 = 936, .data2 = 7109, .data3 = 1408};
-  list_set_print_func(&a, Print_RS);
+  time_t t1 = time(NULL);
+  RNG rng1 = init_rng(t1);
 
-  for (int i = 0; i < 10; i++) {
-    list_append(&a, &rs1);
-    list_display(&a);
+  List_i32 l1 = list_new_i32(10);
+  list_append_i32(&l1, next_rand_i32(&rng1, 1000));
+  list_append_i32(&l1, next_rand_i32(&rng1, 1000));
+
+  list_display_dbg_i32(&l1);
+
+  for (size_t i = 0; i < 40; i++) {
+    list_append_i32(&l1, next_rand_i32(&rng1, 100000));
   }
-  list_insert(&a, &rs2, 3);
-  list_display(&a);
+  list_display_dbg_i32(&l1);
 
-  list_delete(&a, 3);
-  list_display(&a);
-  list_delete(&a, 3);
-  list_display(&a);
-
-  list_free(&a);
+  list_free_i32(&l1);
 }
-s
