@@ -2,14 +2,12 @@
 
 #include "defines.h"
 
-typedef struct mystring
-{
-    char *data;
-    u32 len;
-    u32 cap;
-} MyString;
+typedef struct string {
+  char *data;
+  u32 len;
+  u32 cap;
+} String;
 
-MyString new_string(const char *literal);
+String new_string(const char *literal);
 
-char *trimSpace(char *str);
-void print_str(MyString *s);
+void trimSpace(String *self);

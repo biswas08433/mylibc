@@ -11,10 +11,13 @@ typedef struct rng {
   u64 seed;
 } RNG;
 
+// initialization
 RNG init_rng(u64 seed);
-u64 next_rand(RNG *rng1);
-i32 next_rand_i32(RNG *rng, i32 max);
-
-f64 next_randf(RNG *rng1);
-
-void set_seed(RNG *rng1, u64 value);
+// \return a random number between 0 and RANDOM_MAX
+u64 next_rand(RNG *self);
+// \return a random number between 0 and max
+i32 next_rand_i32(RNG *self, i32 max);
+// \return a random floating-point number between 0 and 1
+f64 next_randf(RNG *self);
+// changes the seed
+void set_seed(RNG *self, u64 value);

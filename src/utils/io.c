@@ -23,7 +23,7 @@ i32 input_int(char *prompt, i32 min, i32 max) {
       error = TRUE;
       continue;
     }
-    trimSpace(buf);
+    // trimSpace(buf);
     result = strtol(buf, string_part, 10);
     if (string_part != NULL && *string_part == buf) {
       error = TRUE;
@@ -49,7 +49,7 @@ f64 input_f64(char *prompt, f64 min, f64 max) {
       error = TRUE;
       continue;
     }
-    trimSpace(buf);
+    // trimSpace(buf);
     result = strtod(buf, NULL);
   } while (error == TRUE || result < min || result > max);
   return result;

@@ -159,8 +159,7 @@ void list_display_dbg_f64(List_f64 *self) {
   u32 length = self->length;
   f64 *arr = self->arr;
 
-  printf("{len: %d, cap: %d, w_perm: %s, [", length, self->capacity,
-         bool_str(self->w_perm));
+  printf("{len: %d, cap: %d, w_perm: %s, [", length, self->capacity, bool_str(self->w_perm));
 
   for (u32 i = 0; i < length; i++) {
     printf("%.15g", arr[i]);
@@ -210,8 +209,7 @@ void list_free_f64(List_f64 *self) {
 b8 list_update_cap_f64(List_f64 *self, b8 can_shrink) {
   if (self->length == self->capacity && self->w_perm == TRUE) {
     self->capacity *= 2;
-  } else if (self->length <= (self->capacity / 2) && self->w_perm == TRUE &&
-             can_shrink) {
+  } else if (self->length <= (self->capacity / 2) && self->w_perm == TRUE && can_shrink) {
     self->capacity /= 2;
   }
   self->arr = (f64 *)realloc(self->arr, self->capacity * sizeof(f64));

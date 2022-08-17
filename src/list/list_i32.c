@@ -144,8 +144,7 @@ void list_display_dbg_i32(List_i32 *self) {
   u32 length = self->length;
   i32 *arr = self->arr;
 
-  printf("{len: %d, cap: %d, w_perm: %s, [", length, self->capacity,
-         bool_str(self->w_perm));
+  printf("{len: %d, cap: %d, w_perm: %s, [", length, self->capacity, bool_str(self->w_perm));
 
   for (u32 i = 0; i < length; i++) {
     printf("%d", arr[i]);
@@ -197,8 +196,7 @@ b8 list_update_cap_i32(List_i32 *self, b8 can_shrink) {
     if (self->arr == NULL) {
       return FALSE;
     }
-  } else if (self->length < (self->capacity / 2) && self->w_perm == TRUE &&
-             can_shrink) {
+  } else if (self->length < (self->capacity / 2) && self->w_perm == TRUE && can_shrink) {
     self->capacity /= 2;
     self->arr = (i32 *)realloc(self->arr, self->capacity * sizeof(i32));
     if (self->arr == NULL) {

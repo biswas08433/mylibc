@@ -22,6 +22,11 @@ typedef double f64;
 typedef int b32;
 typedef char b8;
 
+typedef struct object {
+  void* data;
+  u32 size;
+} Object;
+
 #define STATIC_ASSERT static_assert
 
 STATIC_ASSERT(sizeof(u8) == 1, "u8 not right size");
