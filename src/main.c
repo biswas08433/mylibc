@@ -4,32 +4,31 @@
 #include <time.h>
 
 int main() {
-  time_t t1 = time(NULL);
-  RNG rng1 = init_rng(t1);
-  f64 number = next_randf(&rng1);
+    // time_t t1 = time(NULL);
+    RNG rng1 = init_rng(546);
 
-  LList l1 = llist_new();
-  llist_default_print_func(&l1, print_f64);
-  Object bucket;
-  bucket.data = &number;
-  bucket.size = sizeof(f64);
-  llist_append(&l1, bucket);
-  number = next_randf(&rng1);
-  llist_append(&l1, bucket);
+    Stack s = stack_new(20);
+    stack_print_handler(&s, print_f64);
+    f64 number = next_randf(&rng1);
+    u32 size = sizeof(f64);
 
-  llist_display_dbg(&l1);
+    for (u32 i = 0; i < 5; i++) {
+        number = next_randf(&rng1);
+        push(&s, (Object){&number, size});
+        stack_display(&s);
+    }
 
-  for (size_t i = 0; i < 6; i++) {
-    number = next_randf(&rng1);
-    llist_append(&l1, bucket);
-  }
+    pop(&s, (Object){&number, size});
+    printf("popped: %g\n", number);
+    stack_display(&s);
 
-  llist_display_dbg(&l1);
+    pop(&s, (Object){&number, size});
+    printf("popped: %g\n", number);
+    stack_display(&s);
 
-  number = next_randf(&rng1);
-  llist_prepend(&l1, bucket);
+    pop(&s, (Object){&number, size});
+    printf("popped: %g\n", number);
+    stack_display_dbg(&s);
 
-  llist_display_dbg(&l1);
-
-  llist_free(&l1);
+    stack_free(&s);
 }
