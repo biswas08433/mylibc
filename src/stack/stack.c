@@ -49,13 +49,14 @@ u32 stack_size(Stack* self) { return self->top + 1; }
 
 void stack_display(Stack* self) {
     if (stack_is_empty(self) == TRUE) {
-        printf("[]");
+        printf("stack[]\n");
     } else {
+        printf("stack");
         llist_display_till(&self->arr, self->top);
     }
 }
 void stack_display_dbg(Stack* self) {
-    printf("(top: %d)", self->top);
+    printf("stack(top: %d)", self->top);
     llist_display_dbg(&self->arr);
 }
 

@@ -13,9 +13,9 @@ typedef struct lnode {
 
 // Linked List struct, contains metadata
 typedef struct llist {
-    LNode* head;
-    LNode* tail;
-    LNode* ctx;  // Similar to selecting. By default, last entered node.
+    LNode* head;  // ptr to the first node
+    LNode* tail;  // ptr to the last node
+    LNode* ctx;   // Similar to selecting. By default, last entered node.
     u32 len;
     // Internal Methods
     void (*print_node_default)(void* data);  // Node printing handler

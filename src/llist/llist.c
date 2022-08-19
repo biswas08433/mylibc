@@ -132,13 +132,22 @@ u32 llist_insert(LList* self, u32 index, Object src) {
 }
 
 u32 llist_delete(LList* self, u32 index) {
-    LNode* prev = llist_getnode(self, index - 1);
-    LNode* del = prev->next;
-    prev->next = del->next;
-    lnode_free(del);
-    self->ctx = NULL;
-    self->len -= 1;
-    return self->len;
+    if (index >= self->len || index < 0) {
+        return self->len;
+    } else if (index == 0) {
+        LNode* temp = self->head;
+        self->head = temp->next;
+        lnode_free(temp);
+        return self->len;
+    } else {
+        LNode* prev = llist_getnode(self, index - 1);
+        LNode* del = prev->next;
+        prev->next = del->next;
+        lnode_free(del);
+        self->ctx = NULL;
+        self->len -= 1;
+        return self->len;
+    }
 }
 
 Object llist_get(LList* self, u32 index) {
@@ -196,7 +205,7 @@ void llist_free(LList* self) {
 // -------------------------------------------PRINTING UTILITY------------------------------------------
 
 void llist_display(const LList* self) {
-    printf("{");
+    printf("[");
     if (self->head != NULL) {
         for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
             if (iter->print_node != NULL) {
@@ -212,7 +221,7 @@ void llist_display(const LList* self) {
             }
         }
     }
-    printf("}\n");
+    printf("]\n");
 }
 void llist_display_dbg(const LList* self) {
     printf("{head: %p, tail: %p, len: %d, [", self->head, self->tail, self->len);
@@ -248,12 +257,13 @@ void llist_display_till(const LList* self, u32 index) {
             } else if (self->print_node_default != NULL) {
                 self->print_node_default(iter->core.data);
             } else {
-                printf("no printing funtion found\n");
+                printf("no printing func found\n");
                 return;
             }
             if (iter->next != NULL) {
                 printf(" ");
             }
+            // break if index is reached
             if (i == index) {
                 break;
             }
