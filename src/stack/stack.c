@@ -41,11 +41,19 @@ Object peek(Stack* self) {
     return (Object){NULL, 0};
 }
 // Drains the stack.
-void drain(Stack* self) { self->top = -1; }
+void drain(Stack* self) {
+    self->top = -1;
+}
 
-b8 stack_is_empty(Stack* self) { return self->top == -1; }
-b8 stack_is_full(Stack* self) { return FALSE; }
-u32 stack_size(Stack* self) { return self->top + 1; }
+b8 stack_is_empty(Stack* self) {
+    return self->top == -1;
+}
+b8 stack_is_full(Stack* self) {
+    return FALSE;
+}
+u32 stack_size(Stack* self) {
+    return self->top + 1;
+}
 
 void stack_display(Stack* self) {
     if (stack_is_empty(self) == TRUE) {
@@ -60,7 +68,9 @@ void stack_display_dbg(Stack* self) {
     llist_display_dbg(&self->arr);
 }
 
-void stack_print_handler(Stack* self, void (*handler)(void* data)) { llist_default_print_func(&self->arr, handler); }
+void stack_print_handler(Stack* self, void (*handler)(const void* data)) {
+    llist_default_print_func(&self->arr, handler);
+}
 
 void stack_free(Stack* self) {
     llist_free(&self->arr);

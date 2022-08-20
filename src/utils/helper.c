@@ -94,16 +94,16 @@ void copy_char(char* from, char* to, u32 length) {
     memcpy(to, from, length);
 }
 
-void print_i32(void* data) {
+void print_i32(const void* data) {
     printf("%d", *(i32*)data);
 }
 
-void print_f64(void* data) {
+void print_f64(const void* data) {
     printf("%.15g", *(f64*)data);
 }
-void print_b8(void* data) {
+void print_b8(const void* data) {
     printf("%c", *(b8*)data);
 }
-void print_string(void* data) {
+void print_string(const void* data) {
     printf("%s", (char*)data);
 }
