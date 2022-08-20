@@ -17,5 +17,13 @@ int main() {
         llist_append_f64(&l, number);
         llist_display(&l);
     }
+    llist_append_i32(&l, 457);
+    llist_append_b8(&l, 'T');
+    llist_append_b8(&l, 'R');
+    llist_append_b8(&l, 'U');
+    llist_append_b8(&l, 'C');
+    llist_append_b8(&l, 'K');
+    llist_display(&l);
+
     llist_free(&l);
 }

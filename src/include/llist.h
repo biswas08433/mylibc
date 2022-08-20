@@ -12,6 +12,7 @@ typedef struct lnode {
 
 } LNode;
 
+//// LList is a heterogenous linear data structure.
 // Linked List struct, contains metadata
 typedef struct llist {
     LNode* head;  // ptr to the first node

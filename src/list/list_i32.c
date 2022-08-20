@@ -1,4 +1,4 @@
-#include "../include/list_i32.h"
+#include "../include/list.h"
 #include "../include/helper.h"
 #include "../include/strconv.h"
 
@@ -18,10 +18,6 @@ u32 list_append_i32(List* self, i32 data) {
 
 u32 list_insert_i32(List* self, i32 data, u32 index) {
     return list_insert(self, &data, index);
-}
-
-u32 list_delete_i32(List* self, u32 index) {
-    return list_delete(self, index);
 }
 
 u32 list_search_i32(List* self, i32 value) {
