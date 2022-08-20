@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defines.h"
+#include "mystring.h"
 
 // Node Struct
 typedef struct lnode {
@@ -35,6 +36,10 @@ LList llist_new();
 // Appends an node to the end of the llist.
 // \return Updated length. -1 if any error.
 u32 llist_append(LList* self, Object src);
+u32 llist_append_i32(LList* self, i32 data);
+u32 llist_append_f64(LList* self, f64 data);
+u32 llist_append_b8(LList* self, b8 data);
+u32 llist_append_str(LList* self, String data);
 
 // Prepends an node to the start of the llist.
 // \return Updated length. -1 if any error.
@@ -56,7 +61,7 @@ u32 llist_search(LList* self, Object src, i32 (*compare)(void* data, void* data_
 void llist_display(const LList* self);
 void llist_display_dbg(const LList* self);
 void llist_display_till(const LList* self, u32 index);
-void lnode_print_func(LList* self, void (*handler)(void* data));
+void lnode_ctx_print_func(LList* self, void (*handler)(void* data));
 void llist_default_print_func(LList* self, void (*handler)(void* data));
 
 // Delete the LList

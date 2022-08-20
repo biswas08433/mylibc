@@ -1,5 +1,6 @@
 #include "../include/llist.h"
 #include "../include/mystring.h"
+#include "../include/helper.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +10,7 @@ LList llist_new() {
     LList temp;
     temp.head = NULL;
     temp.tail = NULL;
+    temp.ctx = NULL;
     temp.len = 0;
     return temp;
 }
@@ -16,12 +18,26 @@ LList llist_new() {
 // Internal function for newly allocated node.
 LNode* lnode_new(Object src) {
     void* data = calloc(1, src.size);
+    if (data == NULL) {
+        fprintf(stderr, "Allocation failed.\n");
+        exit(EXIT_FAILURE);
+    }
     memcpy(data, src.data, src.size);
+
     LNode* temp = (LNode*)calloc(1, sizeof(LNode));
+
+    if (temp == NULL) {
+        fprintf(stderr, "Allocation failed.\n");
+        exit(EXIT_FAILURE);
+    }
+
     temp->core.data = data;
     temp->core.size = src.size;
+    temp->core.t = src.t;
+
     temp->next = NULL;
     temp->print_node = NULL;
+
     return temp;
 }
 
@@ -31,6 +47,7 @@ void lnode_set(LNode* self, Object src) {
             self->core.data = realloc(self->core.data, src.size);
         }
         memcpy(self->core.data, src.data, src.size);
+        self->core.size = src.size;
     }
 }
 
@@ -39,7 +56,6 @@ void lnode_free(LNode* self) {
     if (self != NULL) {
         if (self->core.data != NULL) {
             free(self->core.data);
-            self->core.data = NULL;
         }
         free(self);
         self = NULL;
@@ -81,6 +97,27 @@ u32 llist_append(LList* self, Object src) {
     return self->len;
 }
 
+u32 llist_append_i32(LList* self, i32 data) {
+    u32 len = llist_append(self, (Object){&data, sizeof(i32), I32});
+    lnode_ctx_print_func(self, print_i32);
+    return len;
+}
+u32 llist_append_f64(LList* self, f64 data) {
+    u32 len = llist_append(self, (Object){&data, sizeof(f64), F64});
+    lnode_ctx_print_func(self, print_f64);
+    return len;
+}
+u32 llist_append_b8(LList* self, b8 data) {
+    u32 len = llist_append(self, (Object){&data, sizeof(b8), B8});
+    lnode_ctx_print_func(self, print_b8);
+    return len;
+}
+u32 llist_append_str(LList* self, String s) {
+    u32 len = llist_append(self, (Object){&(s.data), sizeof(String), STRING});
+    lnode_ctx_print_func(self, print_string);
+    return len;
+}
+
 u32 llist_prepend(LList* self, Object src) {
     LNode* temp = lnode_new(src);
 
@@ -103,8 +140,7 @@ u32 llist_prepend(LList* self, Object src) {
 
 u32 llist_insert(LList* self, u32 index, Object src) {
     if (index >= self->len || index < 0) {
-        printf("invalid access, %s:%d", __FILE__, __LINE__);
-        exit(EXIT_FAILURE);
+        return self->len;
     } else if (index == 0) {
         return llist_prepend(self, src);
     } else {
@@ -152,7 +188,7 @@ u32 llist_delete(LList* self, u32 index) {
 
 Object llist_get(LList* self, u32 index) {
     LNode* temp = llist_getnode(self, index);
-    return (Object){temp->core.data, temp->core.size};
+    return (Object){temp->core.data, temp->core.size, temp->core.t};
 }
 
 void llist_set(LList* self, u32 index, Object src) {
@@ -175,7 +211,7 @@ void llist_set(LList* self, u32 index, Object src) {
 u32 llist_search(LList* self, Object src, i32 (*compare)(void* data, void* data_src)) {
     if (self->head == NULL) {
         printf("llist empty");
-        exit(EXIT_FAILURE);
+        return -1;
     }
     u32 i = 0;
     for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
@@ -245,7 +281,7 @@ void llist_display_dbg(const LList* self) {
             i += 1;
         }
     }
-    printf("]}\n");
+    printf("] }\n");
 }
 void llist_display_till(const LList* self, u32 index) {
     printf("[");
@@ -273,9 +309,11 @@ void llist_display_till(const LList* self, u32 index) {
     printf("]\n");
 }
 
-void lnode_print_func(LList* self, void (*handler)(void* data)) {
+void lnode_ctx_print_func(LList* self, void (*handler)(void* data)) {
     if (self->head != NULL && self->ctx != NULL) {
         self->ctx->print_node = handler;
     }
 }
-void llist_default_print_func(LList* self, void (*handler)(void* data)) { self->print_node_default = handler; }
+void llist_default_print_func(LList* self, void (*handler)(void* data)) {
+    self->print_node_default = handler;
+}

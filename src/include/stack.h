@@ -14,6 +14,10 @@ Stack stack_new(u32 capacity);
 // \return updated top.
 u32 push(Stack* self, Object src);
 
+// Specialised function
+u32 push_i32();
+u32 push_f64();
+
 // Pops the top of the stack.
 // Assumes the object provided have preallocated memory.
 // Either in stack or heap.

@@ -133,7 +133,9 @@ u32 list_delete(List* self, u32 index) {
     }
 }
 
-void list_set_print_func(List* self, void (*print_func)(const void* elem)) { self->print_func = print_func; }
+void list_set_print_func(List* self, void (*print_func)(void* elem)) {
+    self->print_func = print_func;
+}
 
 void list_display(const List* self) {
     if (self->print_func == NULL) {
@@ -174,7 +176,7 @@ void* list_get(const List* self, u32 index) {
     return self->arr + (index * self->elem_size);
 }
 
-void list_set(const List* self, u32 index, void* data) {
+void list_set(List* self, void* data, u32 index) {
     if (self->arr == NULL) {
         return;
     }
@@ -185,8 +187,12 @@ void list_set(const List* self, u32 index, void* data) {
     memcpy(list_get(self, index), data, self->elem_size);
 }
 
-u32 list_len(const List* self) { return self->length; }
-u32 list_cap(const List* self) { return self->capacity; }
+u32 list_len(const List* self) {
+    return self->length;
+}
+u32 list_cap(const List* self) {
+    return self->capacity;
+}
 
 void list_free(List* self) {
     if (self->w_perm == TRUE && self->arr != NULL) {

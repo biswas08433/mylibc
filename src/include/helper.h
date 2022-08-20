@@ -27,4 +27,5 @@ void copy_char(char* from, char* to, u32 length);
 
 void print_i32(void* data);
 void print_f64(void* data);
+void print_b8(void* data);
 void print_string(void* data);  // TODO: UNIMPLEMENTED

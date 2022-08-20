@@ -23,20 +23,10 @@ typedef int b32;
 typedef char b8;
 
 typedef enum data_type { I32, F64, B8, STRING, GEN } DataType;
-
-// TODO data union
-//  union data {
-//      i32 i;
-//      f64 f;
-//      b8 b;
-//      char* s;
-//      void* g;
-//  } Data;
-//  An object is a generic pointer coupled with its content size.
 typedef struct object {
     void* data;
-    // DataType t;
     u32 size;
+    DataType t;
 } Object;
 
 #define STATIC_ASSERT static_assert
