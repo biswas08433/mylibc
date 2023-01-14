@@ -62,7 +62,7 @@ void lnode_free(LNode* self) {
     }
 }
 
-LNode* llist_getnode(LList* self, u32 index) {
+LNode* llist_getnode(const LList* self, u32 index) {
     if (self->head == NULL) {
         return NULL;
     }
@@ -95,27 +95,6 @@ u32 llist_append(LList* self, Object src) {
     self->ctx = temp;
     self->len += 1;
     return self->len;
-}
-
-u32 llist_append_i32(LList* self, i32 data) {
-    u32 len = llist_append(self, (Object){&data, sizeof(i32), I32});
-    lnode_ctx_print_func(self, print_i32);
-    return len;
-}
-u32 llist_append_f64(LList* self, f64 data) {
-    u32 len = llist_append(self, (Object){&data, sizeof(f64), F64});
-    lnode_ctx_print_func(self, print_f64);
-    return len;
-}
-u32 llist_append_b8(LList* self, b8 data) {
-    u32 len = llist_append(self, (Object){&data, sizeof(b8), B8});
-    lnode_ctx_print_func(self, print_b8);
-    return len;
-}
-u32 llist_append_str(LList* self, String s) {
-    u32 len = llist_append(self, (Object){&(s.data), sizeof(String), STRING});
-    lnode_ctx_print_func(self, print_string);
-    return len;
 }
 
 u32 llist_prepend(LList* self, Object src) {
@@ -186,7 +165,7 @@ u32 llist_delete(LList* self, u32 index) {
     }
 }
 
-Object llist_get(LList* self, u32 index) {
+Object llist_get(const LList* self, u32 index) {
     LNode* temp = llist_getnode(self, index);
     return (Object){temp->core.data, temp->core.size, temp->core.t};
 }
@@ -208,7 +187,7 @@ void llist_set(LList* self, u32 index, Object src) {
     memcpy(dst->core.data, src.data, src.size);
 }
 
-u32 llist_search(LList* self, Object src, i32 (*compare)(void* data, void* data_src)) {
+u32 llist_search(const LList* self, Object src, i32 (*compare)(const void* data, const void* data_src)) {
     if (self->head == NULL) {
         printf("llist empty");
         return -1;
@@ -216,7 +195,6 @@ u32 llist_search(LList* self, Object src, i32 (*compare)(void* data, void* data_
     u32 i = 0;
     for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
         if (compare(iter->core.data, src.data) == 0) {
-            self->ctx = iter;
             return i;
         }
         i += 1;
@@ -309,11 +287,11 @@ void llist_display_till(const LList* self, u32 index) {
     printf("]\n");
 }
 
-void lnode_ctx_print_func(LList* self, void (*handler)(void* data)) {
+void lnode_ctx_print_func(LList* self, void (*handler)(const void* data)) {
     if (self->head != NULL && self->ctx != NULL) {
         self->ctx->print_node = handler;
     }
 }
-void llist_default_print_func(LList* self, void (*handler)(void* data)) {
+void llist_default_print_func(LList* self, void (*handler)(const void* data)) {
     self->print_node_default = handler;
 }

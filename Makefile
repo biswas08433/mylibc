@@ -4,7 +4,11 @@
 
 # Compiler settings - Can be customized.
 CC = gcc
+<<<<<<< HEAD
 CXXFLAGS = -std=c11 -g -Werror -Wall -Isrc/include/
+=======
+CXXFLAGS = -std=c11 -Werror -Wall -g
+>>>>>>> e94f3299efdaab3487acf84208fd67976f1febba
 LDFLAGS = -lm
 
 # Makefile settings - Can be customized.

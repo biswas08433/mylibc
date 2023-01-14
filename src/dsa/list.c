@@ -15,15 +15,17 @@ List list_new(u32 capacity, u32 elem_size) {
     }
 
     temp.elem_size = elem_size;
+    temp.t = GEN;
     temp.length = 0;
     temp.capacity = capacity;
     temp.w_perm = TRUE;
+
     temp.print_func = NULL;
 
     return temp;
 }
 
-List list_copy(const List* self) {
+List list_clone(const List* self) {
     List temp = list_new(self->capacity, self->elem_size);
     temp.elem_size = self->elem_size;
     temp.length = self->length;
@@ -41,7 +43,7 @@ List list_copy(const List* self) {
     return temp;
 }
 
-List list_from(const List* self, u32 start, u32 end, b8 w_perm) {
+List list_slice(const List* self, u32 start, u32 end, b8 w_perm) {
     List temp;
     temp.length = end - start;
     temp.capacity = w_perm ? self->capacity - start : 0;
@@ -59,7 +61,7 @@ List list_from(const List* self, u32 start, u32 end, b8 w_perm) {
     return temp;
 }
 
-List list_new_from(const List* self, u32 start, u32 end) {
+List list_clone_slice(const List* self, u32 start, u32 end) {
     List temp;
     temp.length = end - start;
     temp.capacity = temp.length * 2;
@@ -133,7 +135,7 @@ u32 list_delete(List* self, u32 index) {
     }
 }
 
-void list_set_print_func(List* self, void (*print_func)(void* elem)) {
+void list_set_print_func(List* self, void (*print_func)(const void* elem)) {
     self->print_func = print_func;
 }
 
@@ -145,7 +147,7 @@ void list_display(const List* self) {
     printf("[");
     for (size_t i = 0; i < self->length; i++) {
         self->print_func(self->arr + (i * self->elem_size));
-        if (i != self->length - 1) printf(",");
+        if (i != self->length - 1) printf(" ");
     }
     printf("]\n");
 }
@@ -155,11 +157,11 @@ void list_display_dbg(const List* self) {
         fprintf(stderr, "No printing function found, provide one.\n");
         return;
     }
-    printf("{data: %p, elem_size: %d, len: %d, cap: %d, wperm: %s [", self->arr, self->elem_size, self->length,
-           self->capacity, bool_str(self->w_perm));
+    printf("{data: %p, elem_size: %d, len: %d, cap: %d, wperm: %s [", self->arr, self->elem_size, self->length, self->capacity,
+           bool_str(self->w_perm));
     for (size_t i = 0; i < self->length; i++) {
         self->print_func(self->arr + (i * self->elem_size));
-        if (i != self->length - 1) printf(",");
+        if (i != self->length - 1) printf(" ");
     }
     printf("] }\n");
 }
@@ -217,4 +219,38 @@ void update_list_cap(List* self, b8 can_shrink) {
             exit(EXIT_FAILURE);
         }
     }
+}
+
+void list_reduce(const List* self, const void* start, void* reduced,
+                 void (*reducer)(void* result, const void* data, u32 elem_size)) {
+    if (self == NULL) {
+        return;
+    }
+    memcpy(reduced, start, self->elem_size);
+    for (u32 i = 0; i < self->length; i++) {
+        reducer(reduced, list_get(self, i), self->elem_size);
+    }
+}
+void list_map(List* self, void (*mapper)(void* result, const void* data, u32 elem_size)) {
+    if (self == NULL) {
+        return;
+    }
+    void* bucket = calloc(1, self->elem_size);
+    for (u32 i = 0; i < self->length; i++) {
+        mapper(bucket, list_get(self, i), self->elem_size);
+        list_set(self, bucket, i);
+    }
+    free(bucket);
+    bucket = NULL;
+}
+List list_filter(const List* self, b8 (*filterer)(const void* data, u32 elem_size)) {
+    List temp = list_new(self->capacity, self->elem_size);
+    for (u32 i = 0; i < self->length; i++) {
+        void* src = list_get(self, i);
+        if (filterer(src, self->elem_size)) {
+            list_append(&temp, src);
+        }
+    }
+    update_list_cap(&temp, TRUE);
+    return temp;
 }

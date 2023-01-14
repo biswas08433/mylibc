@@ -29,6 +29,6 @@ u32 queue_size(Queue* self);
 
 void queue_display(Queue* self);
 void queue_display_dbg(Queue* self);
-void queue_print_handler(Queue* self, void (*handler)(void* data));
+void queue_print_handler(Queue* self, void (*handler)(const void* data));
 
 void queue_free(Queue* self);

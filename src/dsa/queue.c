@@ -57,7 +57,11 @@ void queue_display_dbg(Queue* self) {
     printf("queue");
     llist_display_dbg(&self->arr);
 }
+<<<<<<< HEAD:src/dsa/queue.c
 void queue_print_handler(Queue* self, void (*handler)(void* data)) {
+=======
+void queue_print_handler(Queue* self, void (*handler)(const void* data)) {
+>>>>>>> e94f3299efdaab3487acf84208fd67976f1febba:src/queue/queue.c
     llist_default_print_func(&self->arr, handler);
 }
 

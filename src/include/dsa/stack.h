@@ -34,6 +34,6 @@ u32 stack_size(Stack* self);
 
 void stack_display(Stack* self);
 void stack_display_dbg(Stack* self);
-void stack_print_handler(Stack* self, void (*handler)(void* data));
+void stack_print_handler(Stack* self, void (*handler)(const void* data));
 
 void stack_free(Stack* self);

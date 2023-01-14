@@ -25,7 +25,7 @@ void copy_i32(i32* src, i32* dest, u32 length);
 void copy_f64(f64* src, f64* dest, u32 length);
 void copy_char(char* from, char* to, u32 length);
 
-void print_i32(void* data);
-void print_f64(void* data);
-void print_b8(void* data);
-void print_string(void* data);  // TODO: UNIMPLEMENTED
+void print_i32(const void* data);
+void print_f64(const void* data);
+void print_b8(const void* data);
+void print_string(const void* data);  // TODO: UNIMPLEMENTED
