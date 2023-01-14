@@ -1,6 +1,6 @@
-#include "../include/llist.h"
-#include "../include/mystring.h"
-#include "../include/helper.h"
+#include "dsa/llist.h"
+#include "mystring.h"
+#include "helper.h"
 
 #include <stdio.h>
 #include <stdlib.h>

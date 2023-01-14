@@ -1,6 +1,6 @@
-#include "../include/list_f64.h"
-#include "../include/helper.h"
-#include "../include/strconv.h"
+#include "dsa/list_f64.h"
+#include "helper.h"
+#include "strconv.h"
 
 #include <stdio.h>
 #include <stdlib.h>

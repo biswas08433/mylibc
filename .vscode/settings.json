@@ -9,5 +9,13 @@
         "tuple": "c",
         "type_traits": "c",
         "utility": "c"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "c:\\Users\\91910\\Documents\\c\\mylibc",
+            "binaryPath": "c:\\Users\\91910\\Documents\\c\\mylibc\\main",
+            "binaryArgs": []
+        }
+    ],
+    "C_Cpp.errorSquiggles": "enabled"
 }

@@ -1,6 +1,6 @@
-#include "../include/list_i32.h"
-#include "../include/helper.h"
-#include "../include/strconv.h"
+#include "dsa/list_i32.h"
+#include "helper.h"
+#include "strconv.h"
 
 #include <stdio.h>
 #include <stdlib.h>

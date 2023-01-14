@@ -1,21 +1,12 @@
 #include <stdio.h>
 
-#include "include/mylibc.h"
-#include <time.h>
+#include "mylibc.h"
 
 int main() {
-    // time_t t1 = time(NULL);
-    RNG rng1 = init_rng(546);
+    // Complex64 a = complex_new(-1.45687, 89.3457);
+    // Complex64 b = complex_new(23.345, -6.78);
 
-    LList l = llist_new(20);
-    llist_display(&l);
-    f64 number = next_randf(&rng1);
-    llist_append_f64(&l, number);
+    complex_display(complex_euler(1.57));
 
-    for (u32 i = 0; i < 5; i++) {
-        number = next_randf(&rng1);
-        llist_append_f64(&l, number);
-        llist_display(&l);
-    }
-    llist_free(&l);
+    return 0;
 }

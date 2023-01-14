@@ -1,4 +1,4 @@
-#include "../include/queue.h"
+#include "dsa/queue.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,11 +31,19 @@ Object q_peek(Queue* self) {
     return (Object){head.data, head.size};
 }
 // Drains the queue.
-void q_drain(Queue* self) { llist_free(&self->arr); }
+void q_drain(Queue* self) {
+    llist_free(&self->arr);
+}
 
-b8 queue_is_empty(Queue* self) { return (self->arr.len == 0); }
-b8 queue_is_full(Queue* self) { return FALSE; }
-u32 queue_size(Queue* self) { return self->arr.len; }
+b8 queue_is_empty(Queue* self) {
+    return (self->arr.len == 0);
+}
+b8 queue_is_full(Queue* self) {
+    return FALSE;
+}
+u32 queue_size(Queue* self) {
+    return self->arr.len;
+}
 
 void queue_display(Queue* self) {
     if (queue_is_empty(self) == TRUE) {
@@ -49,6 +57,10 @@ void queue_display_dbg(Queue* self) {
     printf("queue");
     llist_display_dbg(&self->arr);
 }
-void queue_print_handler(Queue* self, void (*handler)(void* data)) { llist_default_print_func(&self->arr, handler); }
+void queue_print_handler(Queue* self, void (*handler)(void* data)) {
+    llist_default_print_func(&self->arr, handler);
+}
 
-void queue_free(Queue* self) { llist_free(&self->arr); }
+void queue_free(Queue* self) {
+    llist_free(&self->arr);
+}
