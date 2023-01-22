@@ -65,15 +65,11 @@ void stack_display(Stack* self) {
 }
 void stack_display_dbg(Stack* self) {
     printf("stack(top: %d)", self->top);
-    llist_display_dbg(&self->arr);
+    llist_debug_display(&self->arr);
 }
 
-<<<<<<< HEAD:src/dsa/stack.c
-void stack_print_handler(Stack* self, void (*handler)(void* data)) {
-=======
 void stack_print_handler(Stack* self, void (*handler)(const void* data)) {
->>>>>>> e94f3299efdaab3487acf84208fd67976f1febba:src/stack/stack.c
-    llist_default_print_func(&self->arr, handler);
+    llist_default_print_node(&self->arr, handler);
 }
 
 void stack_free(Stack* self) {

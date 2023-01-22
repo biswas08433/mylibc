@@ -1,21 +1,31 @@
 #include "helper.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
 // Swaps two integers.
-void swap_i32(i32* a, i32* b) {
-    i32 temp = *a;
-    *a = *b;
-    *b = temp;
+void swap_i32(void* a, void* b) {
+    i32 temp = *(i32*)a;
+    *(i32*)a = *(i32*)b;
+    *(i32*)b = temp;
 }
 
 // Swaps two doubles.
-void swap_f64(f64* a, f64* b) {
-    f64 temp = *a;
-    *a = *b;
-    *b = temp;
+void swap_f64(void* a, void* b) {
+    f64 temp = *(f64*)a;
+    *(f64*)a = *(f64*)b;
+    *(f64*)b = temp;
+}
+
+// Swaps two doubles.
+void swap(void* a, void* b, i32 size) {
+    void* temp = calloc(1, size);
+
+    memcpy(temp, a, size);
+    memcpy(a, b, size);
+    memcpy(b, temp, size);
 }
 
 // a > b -> 1

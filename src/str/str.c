@@ -1,12 +1,12 @@
-#include "mystring.h"
+#include "str.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-String new_string(const char* literal) {
-    String temp;
+Str new_string(const char* literal) {
+    Str temp;
 
     u32 len = strlen(literal);
     u32 cap = len * 2;
@@ -20,7 +20,7 @@ String new_string(const char* literal) {
 }
 
 // Trims the trailing whitespace characters. Returns the filtered string.
-void trimSpace(String* self) {
+void trimSpace(Str* self) {
     size_t len = 0;
     char* frontp = self->data;
     char* endp = NULL;

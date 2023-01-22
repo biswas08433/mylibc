@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/strconv.h"
-
 List list_new(u32 capacity, u32 elem_size) {
     List temp;
     temp.arr = calloc(capacity, elem_size);
@@ -20,7 +18,7 @@ List list_new(u32 capacity, u32 elem_size) {
     temp.capacity = capacity;
     temp.w_perm = TRUE;
 
-    temp.print_func = NULL;
+    temp.print_element = NULL;
 
     return temp;
 }
@@ -31,7 +29,7 @@ List list_clone(const List* self) {
     temp.length = self->length;
     temp.capacity = self->capacity;
     temp.w_perm = TRUE;
-    temp.print_func = self->print_func;
+    temp.print_element = self->print_element;
 
     // check if self is invalid
     if (self->arr == NULL) {
@@ -45,12 +43,12 @@ List list_clone(const List* self) {
 
 List list_slice(const List* self, u32 start, u32 end, b8 w_perm) {
     List temp;
-    temp.length = end - start;
+    temp.length = end - start + 1;
     temp.capacity = w_perm ? self->capacity - start : 0;
     temp.w_perm = w_perm;
     // pointer arithmatic
     temp.arr = self->arr + start * (self->elem_size);
-    temp.print_func = self->print_func;
+    temp.print_element = self->print_element;
 
     // check if self is invalid
     if (self->arr == NULL) {
@@ -67,7 +65,7 @@ List list_clone_slice(const List* self, u32 start, u32 end) {
     temp.capacity = temp.length * 2;
     temp.w_perm = TRUE;
     temp.arr = calloc(temp.capacity, self->elem_size);
-    temp.print_func = self->print_func;
+    temp.print_element = self->print_element;
 
     if (temp.arr == NULL) {
         fprintf(stderr, "Allocation failed.\n");
@@ -135,32 +133,32 @@ u32 list_delete(List* self, u32 index) {
     }
 }
 
-void list_set_print_func(List* self, void (*print_func)(const void* elem)) {
-    self->print_func = print_func;
+void list_set_print_element(List* self, void (*handler)(const void* elem)) {
+    self->print_element = handler;
 }
 
 void list_display(const List* self) {
-    if (self->print_func == NULL) {
+    if (self->print_element == NULL) {
         fprintf(stderr, "No printing function found, provide one.\n");
         return;
     }
     printf("[");
     for (size_t i = 0; i < self->length; i++) {
-        self->print_func(self->arr + (i * self->elem_size));
+        self->print_element(self->arr + (i * self->elem_size));
         if (i != self->length - 1) printf(" ");
     }
     printf("]\n");
 }
 
-void list_display_dbg(const List* self) {
-    if (self->print_func == NULL) {
+void list_debug_display(const List* self) {
+    if (self->print_element == NULL) {
         fprintf(stderr, "No printing function found, provide one.\n");
         return;
     }
     printf("{data: %p, elem_size: %d, len: %d, cap: %d, wperm: %s [", self->arr, self->elem_size, self->length, self->capacity,
            bool_str(self->w_perm));
     for (size_t i = 0; i < self->length; i++) {
-        self->print_func(self->arr + (i * self->elem_size));
+        self->print_element(self->arr + (i * self->elem_size));
         if (i != self->length - 1) printf(" ");
     }
     printf("] }\n");
@@ -187,6 +185,13 @@ void list_set(List* self, void* data, u32 index) {
         return;
     }
     memcpy(list_get(self, index), data, self->elem_size);
+}
+
+void list_swap(List* self, i32 i, i32 j) {
+    if (self->w_perm != TRUE || self->length == 0 || i == j) {
+        return;
+    }
+    swap(list_get(self, i), list_get(self, j), self->elem_size);
 }
 
 u32 list_len(const List* self) {

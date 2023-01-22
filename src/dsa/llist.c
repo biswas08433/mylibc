@@ -1,5 +1,5 @@
 #include "dsa/llist.h"
-#include "mystring.h"
+#include "str.h"
 #include "helper.h"
 
 #include <stdio.h>
@@ -10,12 +10,11 @@ LList llist_new() {
     LList temp;
     temp.head = NULL;
     temp.tail = NULL;
-    temp.ctx = NULL;
+    temp.current = NULL;
     temp.len = 0;
     return temp;
 }
 
-// Internal function for newly allocated node.
 LNode* lnode_new(Object src) {
     void* data = calloc(1, src.size);
     if (data == NULL) {
@@ -51,7 +50,6 @@ void lnode_set(LNode* self, Object src) {
     }
 }
 
-// Internal function for deleting and freeing a node.
 void lnode_free(LNode* self) {
     if (self != NULL) {
         if (self->core.data != NULL) {
@@ -92,9 +90,29 @@ u32 llist_append(LList* self, Object src) {
         self->tail->next = temp;
         self->tail = temp;
     }
-    self->ctx = temp;
+    self->current = temp;
     self->len += 1;
     return self->len;
+}
+u32 llist_append_i32(LList* self, i32 data) {
+    u32 len = llist_append(self, (Object){&data, sizeof(i32), I32});
+    lnode_current_print_node(self, print_i32);
+    return len;
+}
+u32 llist_append_f64(LList* self, f64 data) {
+    u32 len = llist_append(self, (Object){&data, sizeof(f64), F64});
+    lnode_current_print_node(self, print_f64);
+    return len;
+}
+u32 llist_append_b8(LList* self, b8 data) {
+    u32 len = llist_append(self, (Object){&data, sizeof(b8), B8});
+    lnode_current_print_node(self, print_b8);
+    return len;
+}
+u32 llist_append_str(LList* self, Str s) {
+    u32 len = llist_append(self, (Object){&(s.data), sizeof(Str), STRING});
+    lnode_current_print_node(self, print_string);
+    return len;
 }
 
 u32 llist_prepend(LList* self, Object src) {
@@ -112,7 +130,7 @@ u32 llist_prepend(LList* self, Object src) {
         temp->next = self->head;
         self->head = temp;
     }
-    self->ctx = temp;
+    self->current = temp;
     self->len += 1;
     return self->len;
 }
@@ -140,7 +158,7 @@ u32 llist_insert(LList* self, u32 index, Object src) {
         LNode* prev = llist_getnode(self, index - 1);
         temp->next = prev->next;
         prev->next = temp;
-        self->ctx = temp;
+        self->current = temp;
         self->len += 1;
     }
     return self->len;
@@ -159,7 +177,7 @@ u32 llist_delete(LList* self, u32 index) {
         LNode* del = prev->next;
         prev->next = del->next;
         lnode_free(del);
-        self->ctx = NULL;
+        self->current = NULL;
         self->len -= 1;
         return self->len;
     }
@@ -211,7 +229,7 @@ void llist_free(LList* self) {
         }
         self->head = NULL;
         self->tail = NULL;
-        self->ctx = NULL;
+        self->current = NULL;
         self->len = 0;
     }
 }
@@ -237,7 +255,7 @@ void llist_display(const LList* self) {
     }
     printf("]\n");
 }
-void llist_display_dbg(const LList* self) {
+void llist_debug_display(const LList* self) {
     printf("{head: %p, tail: %p, len: %d, [", self->head, self->tail, self->len);
     if (self->head != NULL) {
         u32 i = 0;
@@ -287,11 +305,11 @@ void llist_display_till(const LList* self, u32 index) {
     printf("]\n");
 }
 
-void lnode_ctx_print_func(LList* self, void (*handler)(const void* data)) {
-    if (self->head != NULL && self->ctx != NULL) {
-        self->ctx->print_node = handler;
+void lnode_current_print_node(LList* self, void (*handler)(const void* data)) {
+    if (self->head != NULL && self->current != NULL) {
+        self->current->print_node = handler;
     }
 }
-void llist_default_print_func(LList* self, void (*handler)(const void* data)) {
+void llist_default_print_node(LList* self, void (*handler)(const void* data)) {
     self->print_node_default = handler;
 }

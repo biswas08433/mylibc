@@ -1,7 +1,7 @@
 #include "../include/io.h"
 
 #include "helper.h"
-#include "mystring.h"
+#include "str.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -2,10 +2,10 @@
 
 #include "defines.h"
 
-void swap_i32(i32* a, i32* b);
-void swap_f64(f64* a, f64* b);
+void swap_i32(void* a, void* b);
+void swap_f64(void* a, void* b);
 
-void swap(void* a, void* b);
+void swap(void* a, void* b, i32 size);
 
 i8 comp_i32(i32 a, i32 b);
 i8 comp_f64(f64 a, f64 b);

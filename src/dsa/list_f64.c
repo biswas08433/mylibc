@@ -1,12 +1,6 @@
-<<<<<<< HEAD:src/dsa/list_f64.c
-#include "dsa/list_f64.h"
+#include "dsa/list.h"
 #include "helper.h"
 #include "strconv.h"
-=======
-#include "../include/list.h"
-#include "../include/helper.h"
-#include "../include/strconv.h"
->>>>>>> e94f3299efdaab3487acf84208fd67976f1febba:src/list/list_f64.c
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +10,7 @@
 List list_new_f64(u32 capacity) {
     List temp = list_new(capacity, sizeof(f64));
     temp.t = F64;
-    list_set_print_func(&temp, print_f64);
+    list_set_print_element(&temp, print_f64);
     return temp;
 }
 

@@ -1,24 +1,26 @@
 #pragma once
 
 #include "defines.h"
+#include "helper.h"
+#include "strconv.h"
 
 // List is a homogenous contiguous data structure.
-// Capacity is dynamically adjusted by doubling or halving according to length.
-//
+// Capacity is dynamically adjusted by doubling or halving according to need.
 typedef struct list {
     void* arr;      // pointer to the underlying array
     u32 elem_size;  // size of individual element
     DataType t;
 
-    u32 length;    // length of the self
-    u32 capacity;  // capacity of the self befor reallocating
+    u32 length;    // length of the list
+    u32 capacity;  // capacity of the list
     b8 w_perm;     // write permission
 
     // in-built methods
-    // Printing Function for the individual element.
-    void (*print_func)(const void* elem);
+    // Print handler for individual elements.
+    void (*print_element)(const void* elem);
 } List;
 
+// Constructors
 // Returns a new generic list of given element size.
 List list_new(u32 capacity, u32 elem_size);
 List list_new_i32(u32 capacity);
@@ -29,7 +31,7 @@ List list_new_f64(u32 capacity);
 List list_clone(const List* self);
 
 // Creates a new list from existing list. The underlying array will be shared.
-// Range -> [start,end)
+// Range -> [start,end]
 // \param w_perm set the write permission.
 List list_slice(const List* self, u32 start, u32 end, b8 w_perm);
 
@@ -40,7 +42,9 @@ List list_clone_slice(const List* self, u32 start, u32 end);
 
 // Append an element to the list. Returns the updated length or -1 if error.
 u32 list_append(List* self, void* data);
+// Append an i32 to the list. Returns the updated length or -1 if error.
 u32 list_append_i32(List* self, i32 data);
+// Append an f64 to the list. Returns the updated length or -1 if error.
 u32 list_append_f64(List* self, f64 data);
 
 // Insert data into the list at the given index.
@@ -50,8 +54,8 @@ u32 list_insert_i32(List* self, i32 data, u32 index);
 u32 list_insert_f64(List* self, f64 data, u32 index);
 
 // TODO: NOT IMPLEMENTED
-u32 list_bsearch_i32(const List* self, i32 value);
-u32 list_bsearch_f64(const List* self, f64 value);
+// u32 list_bsearch_i32(const List* self, i32 value);
+// u32 list_bsearch_f64(const List* self, f64 value);
 
 // Deletes the data from the list at the given index.
 // \return the updated length.
@@ -61,19 +65,23 @@ u32 list_search_i32(const List* self, i32 value);
 u32 list_search_f64(const List* self, f64 value);
 
 // Sets the printing function
-void list_set_print_func(List* self, void (*print_func)(const void* elem));
+void list_set_print_element(List* self, void (*handler)(const void* element));
 //  Display the slice.
 void list_display(const List* self);
 // Display the slice with debug info.
-void list_display_dbg(const List* self);
+void list_debug_display(const List* self);
 
+// Getter
 void* list_get(const List* self, u32 index);
 i32 list_get_i32(const List* self, u32 index);
 f64 list_get_f64(const List* self, u32 index);
 
+// Setter
 void list_set(List* self, void* data, u32 index);
 void list_set_i32(List* self, i32 data, u32 index);
 void list_set_f64(List* self, f64 data, u32 index);
+
+void list_swap(List* self, i32 i, i32 j);
 
 // \return the length of the list.
 u32 list_len(const List* self);
