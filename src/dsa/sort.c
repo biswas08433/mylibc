@@ -1,23 +1,27 @@
 #include "dsa/sort.h"
 
-void quicksort_i32(List l) {
+#include <stdio.h>
+
+i32 partition_i32(List l, i32 pivot_index) {
+    i32 i = -1, j = 0;
+    i32 pivot_val = list_get_i32(&l, pivot_index);
+    while (j < pivot_index) {
+        if (list_get_i32(&l, j) < pivot_val) {
+            i += 1;
+            if (i != j) list_swap(&l, i, j);
+        }
+        j += 1;
+    }
+    list_swap(&l, i + 1, pivot_index);
+    return i + 1;
+}
+
+void sort_i32(List l) {
     if (l.length <= 1) {
         return;
     }
-    RNG rng = init_rng(123);
-    i32 i = 0, j = l.length, pivot = next_rand_i32(&rng, l.length);
 
-    while (i <= j) {
-        while (list_get_i32(&l, i) < list_get_i32(&l, pivot)) {
-            i += 1;
-        }
-        while (list_get_i32(&l, j) < list_get_i32(&l, pivot)) {
-            j -= 1;
-        }
-        swap_i32(list_get(&l, i), list_get(&l, j));
-    }
-    list_swap(&l, j, pivot);
-    pivot = j;
-    quicksort_i32(list_slice(&l, 0, pivot, TRUE));
-    quicksort_i32(list_slice(&l, pivot + 1, l.length, TRUE));
+    i32 p = partition_i32(l, l.length - 1);
+    sort_i32(list_slice(&l, 0, p, TRUE));
+    sort_i32(list_slice(&l, p + 1, l.length, TRUE));
 }

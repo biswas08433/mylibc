@@ -43,9 +43,13 @@ List list_clone(const List* self) {
 
 List list_slice(const List* self, u32 start, u32 end, b8 w_perm) {
     List temp;
-    temp.length = end - start + 1;
+
+    temp.elem_size = self->elem_size;
+    temp.length = end - start;
     temp.capacity = w_perm ? self->capacity - start : 0;
+    temp.t = self->t;
     temp.w_perm = w_perm;
+
     // pointer arithmatic
     temp.arr = self->arr + start * (self->elem_size);
     temp.print_element = self->print_element;

@@ -17,7 +17,7 @@ OBJDIR = ./obj
 ############## Do not change anything from here downwards! #############
 SRC = $(shell find $(SRCDIR) -name *$(EXT))
 OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
-#DEP = $(OBJ:$(OBJDIR)/%.o=$(DEPDIR)/%.d)
+
 # UNIX-based OS variables & settings
 RM = rm
 DELOBJ = $(OBJ)
@@ -27,7 +27,7 @@ MKDIR_P = mkdir -p
 ####################### Targets beginning here #########################
 ########################################################################
 
-.PHONY:all run clean fullclean cleandep cleanw cleandepw
+.PHONY:all run fullclean
 
 
 all: $(APPNAME)
@@ -60,7 +60,7 @@ clean:
 
 fullclean:
 	$(RM) -f $(DELOBJ) $(APPNAME)
-	$(RM) -r ./obj
+	$(RM) -r ./obj ./dep
 
 # Cleans only all files with the extension .d
 cleandep:

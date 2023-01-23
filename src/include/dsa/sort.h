@@ -5,4 +5,4 @@
 #include "helper.h"
 #include "random.h"
 
-void quicksort_i32(List l);
+void sort_i32(List l);
