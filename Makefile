@@ -2,23 +2,27 @@
 ####################### Makefile Template ##############################
 ########################################################################
 
-# Compiler settings - Can be customized.
-CC = gcc
-CXXFLAGS = -std=c11 -g -Werror -Wall -Isrc/include/
-LDFLAGS = -lm
-
 # Makefile settings - Can be customized.
-APPNAME = main
+
+LIBNAME = lucy
 EXT = .c
 SRCDIR = ./src
 OBJDIR = ./obj
-#DEPDIR = ./dep
+BUILD = ./build
+INCDIR = ./include
+
+# Compiler settings - Can be customized.
+
+CC = gcc
+CFLAGS = -std=c11 -g -Werror -Wall -I$(INCDIR)
+LDFLAGS = -lm
+
+
 
 ############## Do not change anything from here downwards! #############
 SRC = $(shell find $(SRCDIR) -name *$(EXT))
 OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
-#DEP = $(OBJ:$(OBJDIR)/%.o=$(DEPDIR)/%.d)
-# UNIX-based OS variables & settings
+
 RM = rm
 DELOBJ = $(OBJ)
 MKDIR_P = mkdir -p
@@ -27,33 +31,22 @@ MKDIR_P = mkdir -p
 ####################### Targets beginning here #########################
 ########################################################################
 
-.PHONY:all run clean fullclean cleandep cleanw cleandepw
+.PHONY:all run clean fullclean
 
 
-all: $(APPNAME)
-
-run:
-	./$(APPNAME)
+all: $(LIBNAME)
 
 
 # Builds the app
 $(APPNAME): $(OBJ)
-	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
-
-# Creates the dependecy rules
-# $(DEPDIR)/%.d: $(SRCDIR)/%$(EXT)
-# 	$(MKDIR_P) $(dir $@)
-# 	$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=%.o) >$@
-
-# Includes all .h files
-# -include $(DEP)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Building rule for .o files and its .c/.cpp in combination with all .h
 $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
 	$(MKDIR_P) $(dir $@)
-	$(CC) $(CXXFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
-################### Cleaning rules for Unix-based OS ###################
+################### Cleaning rules ###################
 # Cleans complete project
 clean:
 	$(RM) -f $(DELOBJ) $(DEP) $(APPNAME)
@@ -61,7 +54,3 @@ clean:
 fullclean:
 	$(RM) -f $(DELOBJ) $(APPNAME)
 	$(RM) -r ./obj
-
-# Cleans only all files with the extension .d
-cleandep:
-	$(RM)  -f $(DEP)
