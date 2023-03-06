@@ -26,6 +26,8 @@ void swap(void* a, void* b, i32 size) {
     memcpy(temp, a, size);
     memcpy(a, b, size);
     memcpy(b, temp, size);
+    free(temp);
+    temp = NULL;
 }
 
 // a > b -> 1

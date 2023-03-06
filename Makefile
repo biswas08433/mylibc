@@ -23,6 +23,10 @@ LDFLAGS = -lm
 SRC = $(shell find $(SRCDIR) -name *$(EXT))
 OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
 
+<<<<<<< HEAD
+=======
+# UNIX-based OS variables & settings
+>>>>>>> eaac6208ebab4ac5be80b123b4bae395ca8ceafd
 RM = rm
 DELOBJ = $(OBJ)
 MKDIR_P = mkdir -p
@@ -31,7 +35,11 @@ MKDIR_P = mkdir -p
 ####################### Targets beginning here #########################
 ########################################################################
 
+<<<<<<< HEAD
 .PHONY:all run clean fullclean
+=======
+.PHONY:all run fullclean
+>>>>>>> eaac6208ebab4ac5be80b123b4bae395ca8ceafd
 
 
 all: $(LIBNAME)
@@ -53,4 +61,12 @@ clean:
 
 fullclean:
 	$(RM) -f $(DELOBJ) $(APPNAME)
+<<<<<<< HEAD
 	$(RM) -r ./obj
+=======
+	$(RM) -r ./obj ./dep
+
+# Cleans only all files with the extension .d
+cleandep:
+	$(RM)  -f $(DEP)
+>>>>>>> eaac6208ebab4ac5be80b123b4bae395ca8ceafd
