@@ -1,17 +1,18 @@
-#include "str.h"
+#include "strings.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-Str new_string(const char* literal) {
-    Str temp;
+String new_string(const char *literal)
+{
+    String temp;
 
     u32 len = strlen(literal);
     u32 cap = len * 2;
 
-    temp.data = (char*)malloc(cap * sizeof(char));
+    temp.data = (char *)malloc(cap * sizeof(char));
     temp.len = len;
     temp.cap = cap;
 
@@ -20,15 +21,18 @@ Str new_string(const char* literal) {
 }
 
 // Trims the trailing whitespace characters. Returns the filtered string.
-void trimSpace(Str* self) {
+void trimSpace(String *self)
+{
     size_t len = 0;
-    char* frontp = self->data;
-    char* endp = NULL;
+    char *frontp = self->data;
+    char *endp = NULL;
 
-    if (frontp == NULL) {
+    if (frontp == NULL)
+    {
         return;
     }
-    if (self->data[0] == '\0') {
+    if (self->data[0] == '\0')
+    {
         return;
     }
 
@@ -38,11 +42,14 @@ void trimSpace(Str* self) {
     /* Move the front and back pointers to address the first non-whitespace
      * characters from each end.
      */
-    while (isspace((unsigned char)*frontp)) {
+    while (isspace((unsigned char)*frontp))
+    {
         ++frontp;
     }
-    if (endp != frontp) {
-        while (isspace((unsigned char)*(--endp)) && endp != frontp) {
+    if (endp != frontp)
+    {
+        while (isspace((unsigned char)*(--endp)) && endp != frontp)
+        {
         }
     }
 
@@ -56,8 +63,10 @@ void trimSpace(Str* self) {
      * of endp to mean the front of the string buffer now.
      */
     endp = self->data;
-    if (frontp != self->data) {
-        while (*frontp) {
+    if (frontp != self->data)
+    {
+        while (*frontp)
+        {
             *endp++ = *frontp++;
         }
         *endp = '\0';

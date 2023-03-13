@@ -2,55 +2,71 @@
 ####################### Makefile Template ##############################
 ########################################################################
 
-# Makefile settings - Can be customized.
+# Do NOT change these things
+SHELL := bash
+.ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+########################################################################
 
-LIBNAME = lucy
-EXT = .c
-SRCDIR = ./src
-OBJDIR = ./obj
-BUILD = ./build
-INCDIR = ./include
+
+
+# Makefile settings - Can be customized.
+TEST_APP = test01
+TEST_BUILD_DIR = ./test/build
+LIBNAME = libmylibc
+SRC_DIR = ./src
+OBJ_DIR = ./obj
+LIB_DIR = ./lib
+INC_DIR = ./include
 
 # Compiler settings - Can be customized.
 
 CC = gcc
-CFLAGS = -std=c11 -g -Werror -Wall -I$(INCDIR)
-LDFLAGS = -lm
+CFLAGS = -std=c11 -g -Werror -Wall -I$(INC_DIR)
+LDFLAGS = -L./lib -lmylibc -lm
 
-
-
-############## Do not change anything from here downwards! #############
-SRC = $(shell find $(SRCDIR) -name *$(EXT))
-OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
+SRC = $(shell find $(SRC_DIR) -name *.c)
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 RM = rm
-DELOBJ = $(OBJ)
 MKDIR_P = mkdir -p
 
 ########################################################################
 ####################### Targets beginning here #########################
 ########################################################################
 
-.PHONY:all run clean fullclean
+.PHONY:lib test testrun clean
+
+testrun:
+	$(TEST_BUILD_DIR)/$(TEST_APP)
+
+test : $(TEST_APP)
+
+lib: $(LIBNAME).a
 
 
-all: $(LIBNAME)
+
+$(TEST_APP): $(TEST_APP).o $(LIBNAME).a
+	$(CC) $(CFLAGS) -o $(TEST_BUILD_DIR)/$@ $(TEST_BUILD_DIR)/$< $(LDFLAGS)
+
+test01.o : ./test/test01.c
+	$(CC) $(CFLAGS) -o $(TEST_BUILD_DIR)/$@ -c $^
 
 
-# Builds the app
-$(APPNAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+# Builds the lib
+$(LIBNAME).a: $(OBJ)
+	$(MKDIR_P) $(LIB_DIR)
+	ar -rcs $(LIB_DIR)/$@ $^
 
 # Building rule for .o files and its .c/.cpp in combination with all .h
-$(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 ################### Cleaning rules ###################
-# Cleans complete project
-clean:
-	$(RM) -f $(DELOBJ) $(DEP) $(APPNAME)
 
-fullclean:
-	$(RM) -f $(DELOBJ) $(APPNAME)
-	$(RM) -r ./obj
+clean:
+	rm -r $(OBJ_DIR) $(LIB_DIR)

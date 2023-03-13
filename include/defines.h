@@ -22,12 +22,29 @@ typedef double f64;
 typedef int b32;
 typedef char b8;
 
-typedef enum data_type { I32, F64, B8, STRING, GEN } DataType;
-typedef struct object {
-    void* data;
+typedef enum data_type
+{
+    I32,
+    F64,
+    B8,
+    STRING,
+    GEN
+} DataType;
+
+typedef struct object
+{
+    void *data;
     u32 size;
     DataType t;
 } Object;
+
+typedef struct complex64
+{
+    f64 real;
+    f64 imag;
+    f64 rad;
+    f64 theta;
+} Complex64;
 
 #define STATIC_ASSERT static_assert
 
@@ -51,6 +68,12 @@ STATIC_ASSERT(sizeof(b8) == 1, "b8 not right size");
 #define FALSE 0
 
 #define EPSILON (double)1e-15
+
+#define PI 3.14159265359
+#define TAU 6.28318530718
+#define PHI 1.61803398875
+#define EULER 2.71828182846
+
 #define __STDC_WANT_LIB_EXT1__ 1
 
-//#define MY_API __declspec(dllexport)
+// #define MY_API __declspec(dllexport)

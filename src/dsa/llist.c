@@ -1,12 +1,12 @@
 #include "dsa/llist.h"
-#include "str.h"
 #include "helper.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-LList llist_new() {
+LList llist_new()
+{
     LList temp;
     temp.head = NULL;
     temp.tail = NULL;
@@ -15,17 +15,20 @@ LList llist_new() {
     return temp;
 }
 
-LNode* lnode_new(Object src) {
-    void* data = calloc(1, src.size);
-    if (data == NULL) {
+LNode *lnode_new(Object src)
+{
+    void *data = calloc(1, src.size);
+    if (data == NULL)
+    {
         fprintf(stderr, "Allocation failed.\n");
         exit(EXIT_FAILURE);
     }
     memcpy(data, src.data, src.size);
 
-    LNode* temp = (LNode*)calloc(1, sizeof(LNode));
+    LNode *temp = (LNode *)calloc(1, sizeof(LNode));
 
-    if (temp == NULL) {
+    if (temp == NULL)
+    {
         fprintf(stderr, "Allocation failed.\n");
         exit(EXIT_FAILURE);
     }
@@ -40,9 +43,12 @@ LNode* lnode_new(Object src) {
     return temp;
 }
 
-void lnode_set(LNode* self, Object src) {
-    if (self != NULL) {
-        if (self->core.size != src.size) {
+void lnode_set(LNode *self, Object src)
+{
+    if (self != NULL)
+    {
+        if (self->core.size != src.size)
+        {
             self->core.data = realloc(self->core.data, src.size);
         }
         memcpy(self->core.data, src.data, src.size);
@@ -50,9 +56,12 @@ void lnode_set(LNode* self, Object src) {
     }
 }
 
-void lnode_free(LNode* self) {
-    if (self != NULL) {
-        if (self->core.data != NULL) {
+void lnode_free(LNode *self)
+{
+    if (self != NULL)
+    {
+        if (self->core.data != NULL)
+        {
             free(self->core.data);
         }
         free(self);
@@ -60,33 +69,42 @@ void lnode_free(LNode* self) {
     }
 }
 
-LNode* llist_getnode(const LList* self, u32 index) {
-    if (self->head == NULL) {
+LNode *llist_getnode(const LList *self, u32 index)
+{
+    if (self->head == NULL)
+    {
         return NULL;
     }
-    if (index >= self->len || index < 0) {
+    if (index >= self->len || index < 0)
+    {
         return NULL;
     }
-    LNode* iter = self->head;
-    for (u32 i = 0; i < index; i++) {
+    LNode *iter = self->head;
+    for (u32 i = 0; i < index; i++)
+    {
         iter = iter->next;
     }
     return iter;
 }
 
-u32 llist_append(LList* self, Object src) {
-    LNode* temp = lnode_new(src);
+u32 llist_append(LList *self, Object src)
+{
+    LNode *temp = lnode_new(src);
 
     // Exit if allocation failed
-    if (temp == NULL) {
+    if (temp == NULL)
+    {
         exit(EXIT_FAILURE);
     }
 
     // if list is uninitialized
-    if (self->head == NULL) {
+    if (self->head == NULL)
+    {
         self->head = temp;
         self->tail = temp;
-    } else {
+    }
+    else
+    {
         self->tail->next = temp;
         self->tail = temp;
     }
@@ -94,39 +112,48 @@ u32 llist_append(LList* self, Object src) {
     self->len += 1;
     return self->len;
 }
-u32 llist_append_i32(LList* self, i32 data) {
+u32 llist_append_i32(LList *self, i32 data)
+{
     u32 len = llist_append(self, (Object){&data, sizeof(i32), I32});
     lnode_current_print_node(self, print_i32);
     return len;
 }
-u32 llist_append_f64(LList* self, f64 data) {
+u32 llist_append_f64(LList *self, f64 data)
+{
     u32 len = llist_append(self, (Object){&data, sizeof(f64), F64});
     lnode_current_print_node(self, print_f64);
     return len;
 }
-u32 llist_append_b8(LList* self, b8 data) {
+u32 llist_append_b8(LList *self, b8 data)
+{
     u32 len = llist_append(self, (Object){&data, sizeof(b8), B8});
     lnode_current_print_node(self, print_b8);
     return len;
 }
-u32 llist_append_str(LList* self, Str s) {
-    u32 len = llist_append(self, (Object){&(s.data), sizeof(Str), STRING});
+u32 llist_append_str(LList *self, String s)
+{
+    u32 len = llist_append(self, (Object){&(s.data), sizeof(String), STRING});
     lnode_current_print_node(self, print_string);
     return len;
 }
 
-u32 llist_prepend(LList* self, Object src) {
-    LNode* temp = lnode_new(src);
+u32 llist_prepend(LList *self, Object src)
+{
+    LNode *temp = lnode_new(src);
 
     // Exit if allocation failed
-    if (temp == NULL) {
+    if (temp == NULL)
+    {
         exit(EXIT_FAILURE);
     }
     // if list is uninitialized
-    if (self->head == NULL) {
+    if (self->head == NULL)
+    {
         self->head = temp;
         self->tail = temp;
-    } else {
+    }
+    else
+    {
         temp->next = self->head;
         self->head = temp;
     }
@@ -135,27 +162,35 @@ u32 llist_prepend(LList* self, Object src) {
     return self->len;
 }
 
-u32 llist_insert(LList* self, u32 index, Object src) {
-    if (index >= self->len || index < 0) {
+u32 llist_insert(LList *self, u32 index, Object src)
+{
+    if (index >= self->len || index < 0)
+    {
         return self->len;
-    } else if (index == 0) {
+    }
+    else if (index == 0)
+    {
         return llist_prepend(self, src);
-    } else {
-        LNode* temp = lnode_new(src);
+    }
+    else
+    {
+        LNode *temp = lnode_new(src);
         // Exit if allocation failed
-        if (temp == NULL) {
+        if (temp == NULL)
+        {
             exit(EXIT_FAILURE);
         }
 
         // if list is uninitialized
-        if (self->head == NULL) {
+        if (self->head == NULL)
+        {
             self->head = temp;
             self->tail = temp;
             // TODO log that the given index is not valid as list is uninitialized
             self->len += 1;
             return self->len;
         }
-        LNode* prev = llist_getnode(self, index - 1);
+        LNode *prev = llist_getnode(self, index - 1);
         temp->next = prev->next;
         prev->next = temp;
         self->current = temp;
@@ -164,17 +199,23 @@ u32 llist_insert(LList* self, u32 index, Object src) {
     return self->len;
 }
 
-u32 llist_delete(LList* self, u32 index) {
-    if (index >= self->len || index < 0) {
+u32 llist_delete(LList *self, u32 index)
+{
+    if (index >= self->len || index < 0)
+    {
         return self->len;
-    } else if (index == 0) {
-        LNode* temp = self->head;
+    }
+    else if (index == 0)
+    {
+        LNode *temp = self->head;
         self->head = temp->next;
         lnode_free(temp);
         return self->len;
-    } else {
-        LNode* prev = llist_getnode(self, index - 1);
-        LNode* del = prev->next;
+    }
+    else
+    {
+        LNode *prev = llist_getnode(self, index - 1);
+        LNode *del = prev->next;
         prev->next = del->next;
         lnode_free(del);
         self->current = NULL;
@@ -183,19 +224,23 @@ u32 llist_delete(LList* self, u32 index) {
     }
 }
 
-Object llist_get(const LList* self, u32 index) {
-    LNode* temp = llist_getnode(self, index);
+Object llist_get(const LList *self, u32 index)
+{
+    LNode *temp = llist_getnode(self, index);
     return (Object){temp->core.data, temp->core.size, temp->core.t};
 }
 
-void llist_set(LList* self, u32 index, Object src) {
-    LNode* prev = llist_getnode(self, index - 1);
-    LNode* dst = prev->next;
-    if (prev == NULL || dst == NULL) {
+void llist_set(LList *self, u32 index, Object src)
+{
+    LNode *prev = llist_getnode(self, index - 1);
+    LNode *dst = prev->next;
+    if (prev == NULL || dst == NULL)
+    {
         return;
     }
-    if (dst->core.size != src.size) {
-        LNode* temp = dst->next;
+    if (dst->core.size != src.size)
+    {
+        LNode *temp = dst->next;
         free(dst);
         dst = lnode_new(src);
         prev->next = dst;
@@ -205,14 +250,18 @@ void llist_set(LList* self, u32 index, Object src) {
     memcpy(dst->core.data, src.data, src.size);
 }
 
-u32 llist_search(const LList* self, Object src, i32 (*compare)(const void* data, const void* data_src)) {
-    if (self->head == NULL) {
+u32 llist_search(const LList *self, Object src, i32 (*compare)(const void *data, const void *data_src))
+{
+    if (self->head == NULL)
+    {
         printf("llist empty");
         return -1;
     }
     u32 i = 0;
-    for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
-        if (compare(iter->core.data, src.data) == 0) {
+    for (LNode *iter = self->head; iter != NULL; iter = iter->next)
+    {
+        if (compare(iter->core.data, src.data) == 0)
+        {
             return i;
         }
         i += 1;
@@ -220,10 +269,13 @@ u32 llist_search(const LList* self, Object src, i32 (*compare)(const void* data,
     return -1;
 }
 
-void llist_free(LList* self) {
-    if (self->head != NULL) {
-        LNode* temp2 = self->head;
-        for (LNode* temp1 = self->head; temp1 != NULL; temp1 = temp2) {
+void llist_free(LList *self)
+{
+    if (self->head != NULL)
+    {
+        LNode *temp2 = self->head;
+        for (LNode *temp1 = self->head; temp1 != NULL; temp1 = temp2)
+        {
             temp2 = temp2->next;
             lnode_free(temp1);
         }
@@ -236,42 +288,60 @@ void llist_free(LList* self) {
 
 // -------------------------------------------PRINTING UTILITY------------------------------------------
 
-void llist_display(const LList* self) {
+void llist_display(const LList *self)
+{
     printf("[");
-    if (self->head != NULL) {
-        for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
-            if (iter->print_node != NULL) {
+    if (self->head != NULL)
+    {
+        for (LNode *iter = self->head; iter != NULL; iter = iter->next)
+        {
+            if (iter->print_node != NULL)
+            {
                 iter->print_node(iter->core.data);
-            } else if (self->print_node_default != NULL) {
+            }
+            else if (self->print_node_default != NULL)
+            {
                 self->print_node_default(iter->core.data);
-            } else {
+            }
+            else
+            {
                 printf("no printing funtion found\n");
                 return;
             }
-            if (iter->next != NULL) {
+            if (iter->next != NULL)
+            {
                 printf(" ");
             }
         }
     }
     printf("]\n");
 }
-void llist_debug_display(const LList* self) {
+void llist_debug_display(const LList *self)
+{
     printf("{head: %p, tail: %p, len: %d, [", self->head, self->tail, self->len);
-    if (self->head != NULL) {
+    if (self->head != NULL)
+    {
         u32 i = 0;
-        for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
+        for (LNode *iter = self->head; iter != NULL; iter = iter->next)
+        {
             printf("(%d): ", i);
             // Checking if node-specific printing func exist.
-            if (iter->print_node != NULL) {
+            if (iter->print_node != NULL)
+            {
                 iter->print_node(iter->core.data);
-            } else if (self->print_node_default != NULL) {
+            }
+            else if (self->print_node_default != NULL)
+            {
                 // if no node-specific found, then trying default
                 self->print_node_default(iter->core.data);
-            } else {
+            }
+            else
+            {
                 printf("no printing funtion found\n");
                 return;
             }
-            if (iter->next != NULL) {
+            if (iter->next != NULL)
+            {
                 printf(" -> ");
             }
             i += 1;
@@ -279,24 +349,34 @@ void llist_debug_display(const LList* self) {
     }
     printf("] }\n");
 }
-void llist_display_till(const LList* self, u32 index) {
+void llist_display_till(const LList *self, u32 index)
+{
     printf("[");
-    if (self->head != NULL) {
+    if (self->head != NULL)
+    {
         u32 i = 0;
-        for (LNode* iter = self->head; iter != NULL; iter = iter->next) {
-            if (iter->print_node != NULL) {
+        for (LNode *iter = self->head; iter != NULL; iter = iter->next)
+        {
+            if (iter->print_node != NULL)
+            {
                 iter->print_node(iter->core.data);
-            } else if (self->print_node_default != NULL) {
+            }
+            else if (self->print_node_default != NULL)
+            {
                 self->print_node_default(iter->core.data);
-            } else {
+            }
+            else
+            {
                 printf("no printing func found\n");
                 return;
             }
-            if (iter->next != NULL) {
+            if (iter->next != NULL)
+            {
                 printf(" ");
             }
             // break if index is reached
-            if (i == index) {
+            if (i == index)
+            {
                 break;
             }
             i += 1;
@@ -305,11 +385,14 @@ void llist_display_till(const LList* self, u32 index) {
     printf("]\n");
 }
 
-void lnode_current_print_node(LList* self, void (*handler)(const void* data)) {
-    if (self->head != NULL && self->current != NULL) {
+void lnode_current_print_node(LList *self, void (*handler)(const void *data))
+{
+    if (self->head != NULL && self->current != NULL)
+    {
         self->current->print_node = handler;
     }
 }
-void llist_default_print_node(LList* self, void (*handler)(const void* data)) {
+void llist_default_print_node(LList *self, void (*handler)(const void *data))
+{
     self->print_node_default = handler;
 }

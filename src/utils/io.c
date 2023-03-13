@@ -1,31 +1,35 @@
 #include "../include/io.h"
 
 #include "helper.h"
-#include "str.h"
+#include "strings.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <float.h>
 
-i32 input_int(char* prompt, i32 min, i32 max) {
+i32 input_int(char *prompt, i32 min, i32 max)
+{
     i32 buf_length = 1024;
     char buf[buf_length];
     b8 error = FALSE;
     i32 result = 0;
-    char** string_part = NULL;
+    char **string_part = NULL;
 
-    do {
+    do
+    {
         printf("%s[%d <-> %d]: ", prompt, min, max);
         fflush(stdin);
         fflush(stdout);
-        if (fgets(buf, 1024, stdin) == NULL) {
+        if (fgets(buf, 1024, stdin) == NULL)
+        {
             error = TRUE;
             continue;
         }
         // trimSpace(buf);
         result = strtol(buf, string_part, 10);
-        if (string_part != NULL && *string_part == buf) {
+        if (string_part != NULL && *string_part == buf)
+        {
             error = TRUE;
             printf("error\n");
         }
@@ -33,7 +37,8 @@ i32 input_int(char* prompt, i32 min, i32 max) {
     return result;
 }
 
-f64 input_f64(char* prompt, f64 min, f64 max) {
+f64 input_f64(char *prompt, f64 min, f64 max)
+{
     i32 buf_length = 1024;
     char buf[buf_length];
     b8 error = FALSE;
@@ -41,11 +46,13 @@ f64 input_f64(char* prompt, f64 min, f64 max) {
 
     init_char(buf, 1024, 0);
 
-    do {
+    do
+    {
         fflush(stdin);
         fflush(stdout);
         printf("%s[%g <-> %g]: ", prompt, min, max);
-        if (fgets(buf, 1024, stdin) == NULL) {
+        if (fgets(buf, 1024, stdin) == NULL)
+        {
             error = TRUE;
             continue;
         }
